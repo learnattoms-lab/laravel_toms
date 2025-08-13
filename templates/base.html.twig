@@ -841,6 +841,62 @@
             box-shadow: 0 0.25rem 0.5rem rgba(40, 167, 69, 0.3);
         }
         
+        /* Contact Method Selection Styles */
+        .contact-methods h5 {
+            color: #495057;
+            font-weight: 600;
+        }
+        
+        .contact-options {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .contact-option {
+            flex: 1;
+            min-width: 120px;
+            cursor: pointer;
+            margin: 0;
+        }
+        
+        .contact-option input[type="radio"] {
+            display: none;
+        }
+        
+        .option-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 1rem;
+            border: 2px solid #e9ecef;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+            text-align: center;
+            background: #f8f9fa;
+        }
+        
+        .contact-option input[type="radio"]:checked + .option-content {
+            border-color: #28a745;
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .option-content i {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: #6c757d;
+        }
+        
+        .contact-option input[type="radio"]:checked + .option-content i {
+            color: #28a745;
+        }
+        
+        .option-content span:last-child {
+            font-weight: 500;
+            font-size: 0.875rem;
+        }
+        
         @media (max-width: 768px) {
             .floating-request-call {
                 bottom: 1rem;
@@ -856,6 +912,14 @@
                 margin: 10% auto;
                 width: 95%;
                 padding: 1.5rem;
+            }
+            
+            .contact-options {
+                flex-direction: column;
+            }
+            
+            .contact-option {
+                min-width: auto;
             }
         }
     </style>
@@ -1034,40 +1098,73 @@
     
     {% block javascripts %}{% endblock %}
     
-    <!-- Floating Request Call Button -->
+    <!-- Floating Contact Button -->
     <div class="floating-request-call" id="floatingRequestCall">
         <button class="request-call-btn" onclick="openRequestCallModal()">
-            <i class="fas fa-phone"></i>
-            Request Call
+            <i class="fas fa-comments"></i>
+            Contact Us
         </button>
     </div>
 
-    <!-- Request Call Modal -->
+    <!-- Contact Modal -->
     <div class="request-call-modal" id="requestCallModal">
         <div class="request-call-content">
             <div class="modal-header">
-                <h3 class="modal-title">Request a Call Back</h3>
+                <h3 class="modal-title">Contact Us</h3>
                 <button class="close-modal" onclick="closeRequestCallModal()">&times;</button>
             </div>
+            
+            <!-- Contact Method Selection -->
+            <div class="contact-methods mb-4">
+                <h5 class="mb-3">How would you like to be contacted?</h5>
+                <div class="contact-options">
+                    <label class="contact-option">
+                        <input type="radio" name="contactMethod" value="call" checked>
+                        <span class="option-content">
+                            <i class="fas fa-phone"></i>
+                            <span>Phone Call</span>
+                        </span>
+                    </label>
+                    <label class="contact-option">
+                        <input type="radio" name="contactMethod" value="chat">
+                        <span class="option-content">
+                            <i class="fas fa-comments"></i>
+                            <span>Live Chat</span>
+                        </span>
+                    </label>
+                    <label class="contact-option">
+                        <input type="radio" name="contactMethod" value="email">
+                        <span class="option-content">
+                            <i class="fas fa-envelope"></i>
+                            <span>Email</span>
+                        </span>
+                    </label>
+                </div>
+            </div>
+            
             <form id="requestCallForm">
                 <div class="form-group">
                     <label class="form-label" for="callName">Full Name *</label>
                     <input type="text" class="form-control" id="callName" name="name" required>
                 </div>
-                <div class="form-group">
+                
+                <div class="form-group" id="phoneGroup">
                     <label class="form-label" for="callPhone">Phone Number *</label>
                     <input type="tel" class="form-control" id="callPhone" name="phone" required>
                 </div>
-                <div class="form-group">
-                    <label class="form-label" for="callEmail">Email Address</label>
+                
+                <div class="form-group" id="emailGroup" style="display: none;">
+                    <label class="form-label" for="callEmail">Email Address *</label>
                     <input type="email" class="form-control" id="callEmail" name="email">
                 </div>
+                
                 <div class="form-group">
                     <label class="form-label" for="callMessage">Message</label>
                     <textarea class="form-control" id="callMessage" name="message" rows="3" placeholder="Tell us about your musical interests and what you'd like to learn..."></textarea>
                 </div>
+                
                 <button type="submit" class="submit-request">
-                    <i class="fas fa-phone me-2"></i>Request Call Back
+                    <i class="fas fa-paper-plane me-2"></i>Send Request
                 </button>
             </form>
         </div>
@@ -1109,6 +1206,28 @@
             }
         });
         
+        // Handle contact method selection
+        document.querySelectorAll('input[name="contactMethod"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                const phoneGroup = document.getElementById('phoneGroup');
+                const emailGroup = document.getElementById('emailGroup');
+                const phoneInput = document.getElementById('callPhone');
+                const emailInput = document.getElementById('callEmail');
+                
+                if (this.value === 'email') {
+                    phoneGroup.style.display = 'none';
+                    emailGroup.style.display = 'block';
+                    phoneInput.removeAttribute('required');
+                    emailInput.setAttribute('required', 'required');
+                } else {
+                    phoneGroup.style.display = 'block';
+                    emailGroup.style.display = 'none';
+                    phoneInput.setAttribute('required', 'required');
+                    emailInput.removeAttribute('required');
+                }
+            });
+        });
+        
         // Handle form submission
         document.getElementById('requestCallForm').addEventListener('submit', function(e) {
             e.preventDefault();
@@ -1117,15 +1236,40 @@
             const formData = new FormData(this);
             const data = Object.fromEntries(formData);
             
-            // Here you would typically send the data to your backend
-            console.log('Request call data:', data);
+            // Validate required fields based on contact method
+            const contactMethod = data.contactMethod;
+            if (contactMethod === 'email' && !data.email) {
+                alert('Please enter your email address.');
+                return;
+            } else if (contactMethod === 'call' && !data.phone) {
+                alert('Please enter your phone number.');
+                return;
+            }
             
-            // Show success message
-            alert('Thank you! We\'ll call you back within 24 hours.');
+            // Here you would typically send the data to your backend
+            console.log('Contact request data:', data);
+            
+            // Show success message based on contact method
+            let message = 'Thank you! ';
+            if (contactMethod === 'call') {
+                message += 'We\'ll call you back within 24 hours.';
+            } else if (contactMethod === 'chat') {
+                message += 'We\'ll start a live chat session with you shortly.';
+            } else if (contactMethod === 'email') {
+                message += 'We\'ll email you within 24 hours.';
+            }
+            
+            alert(message);
             
             // Close modal and reset form
             closeRequestCallModal();
             this.reset();
+            
+            // Reset form display
+            document.getElementById('phoneGroup').style.display = 'block';
+            document.getElementById('emailGroup').style.display = 'none';
+            document.getElementById('callPhone').setAttribute('required', 'required');
+            document.getElementById('callEmail').removeAttribute('required');
         });
     </script>
 </body>
