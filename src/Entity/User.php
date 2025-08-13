@@ -95,7 +95,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private array $badges = [];
 
     #[ORM\Column(type: 'decimal', precision: 5, scale: 2, nullable: true)]
-    private ?float $rating = null;
+    private ?string $rating = null;
 
     #[ORM\Column(type: 'integer', options: ['default' => 0])]
     private int $totalLessons = 0;
@@ -131,7 +131,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private array $teacherCertifications = [];
 
     #[ORM\Column(type: 'decimal', precision: 5, scale: 2, nullable: true)]
-    private ?float $hourlyRate = null;
+    private ?string $hourlyRate = null;
 
     #[ORM\Column(type: 'json', nullable: true)]
     private array $availability = [];
@@ -508,12 +508,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getRating(): ?float
+    public function getRating(): ?string
     {
         return $this->rating;
     }
 
-    public function setRating(?float $rating): static
+    public function setRating(?string $rating): static
     {
         $this->rating = $rating;
         return $this;
@@ -657,12 +657,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getHourlyRate(): ?float
+    public function getHourlyRate(): ?string
     {
         return $this->hourlyRate;
     }
 
-    public function setHourlyRate(?float $hourlyRate): static
+    public function setHourlyRate(?string $hourlyRate): static
     {
         $this->hourlyRate = $hourlyRate;
         return $this;
