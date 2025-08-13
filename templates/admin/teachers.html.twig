@@ -1,0 +1,314 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Manage Teachers - Admin{% endblock %}
+
+{% block body %}
+<style>
+.admin-container {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    min-height: 100vh;
+    padding-top: 80px;
+}
+
+.admin-header {
+    background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+    color: white;
+    padding: 2rem 0;
+    margin-bottom: 2rem;
+}
+
+.admin-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.admin-subtitle {
+    font-size: 1.1rem;
+    opacity: 0.9;
+    margin-bottom: 0;
+}
+
+.admin-card {
+    background: white;
+    border-radius: 0.75rem;
+    padding: 2rem;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    border: 1px solid #e9ecef;
+    margin-bottom: 2rem;
+}
+
+.teachers-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.teachers-table th {
+    background: #f8f9fa;
+    padding: 1rem;
+    text-align: left;
+    font-weight: 600;
+    color: #495057;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.teachers-table td {
+    padding: 1rem;
+    border-bottom: 1px solid #e9ecef;
+    color: #495057;
+}
+
+.teachers-table tr:last-child td {
+    border-bottom: none;
+}
+
+.teachers-table tr:hover {
+    background: #f8f9fa;
+}
+
+.teacher-avatar {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 700;
+    font-size: 0.875rem;
+}
+
+.teacher-name {
+    font-weight: 600;
+    color: #212529;
+}
+
+.teacher-email {
+    color: #6b7280;
+    font-size: 0.875rem;
+}
+
+.status-badge {
+    padding: 0.25rem 0.75rem;
+    border-radius: 1rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.status-active {
+    background: #d1edff;
+    color: #0c5460;
+}
+
+.status-inactive {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+.btn {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 0.25rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 0.875rem;
+}
+
+.btn-primary {
+    background: #007bff;
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #0056b3;
+    transform: translateY(-1px);
+}
+
+.btn-success {
+    background: #28a745;
+    color: white;
+}
+
+.btn-success:hover {
+    background: #218838;
+    transform: translateY(-1px);
+}
+
+.btn-warning {
+    background: #ffc107;
+    color: #212529;
+}
+
+.btn-warning:hover {
+    background: #e0a800;
+    transform: translateY(-1px);
+}
+
+.btn-danger {
+    background: #dc3545;
+    color: white;
+}
+
+.btn-danger:hover {
+    background: #c82333;
+    transform: translateY(-1px);
+}
+
+.header-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 3rem;
+    color: #6c757d;
+}
+
+.empty-state i {
+    font-size: 3rem;
+    color: #dee2e6;
+    margin-bottom: 1rem;
+}
+
+@media (max-width: 768px) {
+    .teachers-table {
+        font-size: 0.875rem;
+    }
+    
+    .teachers-table th,
+    .teachers-table td {
+        padding: 0.75rem 0.5rem;
+    }
+    
+    .header-actions {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+    }
+}
+</style>
+
+<div class="admin-container">
+    <!-- Admin Header -->
+    <div class="admin-header">
+        <div class="container">
+            <h1 class="admin-title">Manage Teachers</h1>
+            <p class="admin-subtitle">View and manage all music teachers on the platform</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="admin-card">
+            <div class="header-actions">
+                <h2 class="mb-0">Teachers List</h2>
+                <a href="{{ path('admin_add_teacher') }}" class="btn btn-primary">
+                    <i class="fas fa-plus me-2"></i>Add New Teacher
+                </a>
+            </div>
+
+            {% if teachers is empty %}
+                <div class="empty-state">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                    <h3>No Teachers Found</h3>
+                    <p>Start by adding your first music teacher to the platform.</p>
+                    <a href="{{ path('admin_add_teacher') }}" class="btn btn-primary">Add First Teacher</a>
+                </div>
+            {% else %}
+                <div class="table-responsive">
+                    <table class="teachers-table">
+                        <thead>
+                            <tr>
+                                <th>Teacher</th>
+                                <th>Instrument</th>
+                                <th>Hourly Rate</th>
+                                <th>Students</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for teacher in teachers %}
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <div class="teacher-avatar me-3">
+                                                {% if teacher.firstName and teacher.lastName %}
+                                                    {{ teacher.firstName|first }}{{ teacher.lastName|first }}
+                                                {% elseif teacher.firstName %}
+                                                    {{ teacher.firstName|first }}
+                                                {% elseif teacher.email %}
+                                                    {{ teacher.email|first|upper }}
+                                                {% else %}
+                                                    T
+                                                {% endif %}
+                                            </div>
+                                            <div>
+                                                <div class="teacher-name">{{ teacher.firstName|default('') }} {{ teacher.lastName|default('') }}</div>
+                                                <div class="teacher-email">{{ teacher.email }}</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>{{ teacher.instrument|default('Not specified') }}</td>
+                                    <td>${{ teacher.hourlyRate|default('0') }}/hr</td>
+                                    <td>{{ teacher.totalStudents|default(0) }}</td>
+                                    <td>
+                                        <span class="status-badge {% if teacher.isActive %}status-active{% else %}status-inactive{% endif %}">
+                                            {% if teacher.isActive %}Active{% else %}Inactive{% endif %}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex gap-2">
+                                            <a href="{{ path('admin_edit_teacher', {'id': teacher.id}) }}" class="btn btn-warning btn-sm">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                            <button class="btn btn-success btn-sm" onclick="toggleTeacherStatus({{ teacher.id }})">
+                                                {% if teacher.isActive %}
+                                                    <i class="fas fa-pause"></i>
+                                                {% else %}
+                                                    <i class="fas fa-play"></i>
+                                                {% endif %}
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<script>
+function toggleTeacherStatus(teacherId) {
+    if (confirm('Are you sure you want to change this teacher\'s status?')) {
+        fetch(`/admin/teachers/${teacherId}/toggle-status`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                location.reload();
+            } else {
+                alert('Error updating teacher status');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Error updating teacher status');
+        });
+    }
+}
+</script>
+{% endblock %}

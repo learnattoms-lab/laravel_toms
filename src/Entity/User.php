@@ -59,7 +59,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $timezone = null;
 
     #[ORM\Column(type: 'json', nullable: true)]
-    private array $preferences = [];
+    private ?array $preferences = [];
 
     #[ORM\Column(type: 'datetime')]
     private ?\DateTimeInterface $createdAt = null;
@@ -89,10 +89,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private int $level = 1;
 
     #[ORM\Column(type: 'json', nullable: true)]
-    private array $achievements = [];
+    private ?array $achievements = [];
 
     #[ORM\Column(type: 'json', nullable: true)]
-    private array $badges = [];
+    private ?array $badges = [];
 
     #[ORM\Column(type: 'decimal', precision: 5, scale: 2, nullable: true)]
     private ?string $rating = null;
@@ -110,10 +110,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?\DateTimeInterface $lastPracticeAt = null;
 
     #[ORM\Column(type: 'json', nullable: true)]
-    private array $learningGoals = [];
+    private ?array $learningGoals = [];
 
     #[ORM\Column(type: 'json', nullable: true)]
-    private array $progressData = [];
+    private ?array $progressData = [];
 
     #[ORM\Column(type: 'text', nullable: true)]
     private ?string $notes = null;
@@ -125,19 +125,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $teacherBio = null;
 
     #[ORM\Column(type: 'json', nullable: true)]
-    private array $teacherSpecialties = [];
+    private ?array $teacherSpecialties = [];
 
     #[ORM\Column(type: 'json', nullable: true)]
-    private array $teacherCertifications = [];
+    private ?array $teacherCertifications = [];
 
     #[ORM\Column(type: 'decimal', precision: 5, scale: 2, nullable: true)]
     private ?string $hourlyRate = null;
 
     #[ORM\Column(type: 'json', nullable: true)]
-    private array $availability = [];
+    private ?array $availability = [];
 
     #[ORM\Column(type: 'json', nullable: true)]
-    private array $studentReviews = [];
+    private ?array $studentReviews = [];
 
     #[ORM\Column(type: 'integer', options: ['default' => 0])]
     private int $totalStudents = 0;
@@ -347,12 +347,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getPreferences(): array
+    public function getPreferences(): ?array
     {
         return $this->preferences;
     }
 
-    public function setPreferences(array $preferences): static
+    public function setPreferences(?array $preferences): static
     {
         $this->preferences = $preferences;
         return $this;
@@ -470,12 +470,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->level = max(1, intval($this->experiencePoints / 100) + 1);
     }
 
-    public function getAchievements(): array
+    public function getAchievements(): ?array
     {
         return $this->achievements;
     }
 
-    public function setAchievements(array $achievements): static
+    public function setAchievements(?array $achievements): static
     {
         $this->achievements = $achievements;
         return $this;
@@ -489,12 +489,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getBadges(): array
+    public function getBadges(): ?array
     {
         return $this->badges;
     }
 
-    public function setBadges(array $badges): static
+    public function setBadges(?array $badges): static
     {
         $this->badges = $badges;
         return $this;
@@ -569,12 +569,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getLearningGoals(): array
+    public function getLearningGoals(): ?array
     {
         return $this->learningGoals;
     }
 
-    public function setLearningGoals(array $learningGoals): static
+    public function setLearningGoals(?array $learningGoals): static
     {
         $this->learningGoals = $learningGoals;
         return $this;
@@ -588,12 +588,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getProgressData(): array
+    public function getProgressData(): ?array
     {
         return $this->progressData;
     }
 
-    public function setProgressData(array $progressData): static
+    public function setProgressData(?array $progressData): static
     {
         $this->progressData = $progressData;
         return $this;
@@ -635,23 +635,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getTeacherSpecialties(): array
+    public function getTeacherSpecialties(): ?array
     {
         return $this->teacherSpecialties;
     }
 
-    public function setTeacherSpecialties(array $teacherSpecialties): static
+    public function setTeacherSpecialties(?array $teacherSpecialties): static
     {
         $this->teacherSpecialties = $teacherSpecialties;
         return $this;
     }
 
-    public function getTeacherCertifications(): array
+    public function getTeacherCertifications(): ?array
     {
         return $this->teacherCertifications;
     }
 
-    public function setTeacherCertifications(array $teacherCertifications): static
+    public function setTeacherCertifications(?array $teacherCertifications): static
     {
         $this->teacherCertifications = $teacherCertifications;
         return $this;
@@ -668,23 +668,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getAvailability(): array
+    public function getAvailability(): ?array
     {
         return $this->availability;
     }
 
-    public function setAvailability(array $availability): static
+    public function setAvailability(?array $availability): static
     {
         $this->availability = $availability;
         return $this;
     }
 
-    public function getStudentReviews(): array
+    public function getStudentReviews(): ?array
     {
         return $this->studentReviews;
     }
 
-    public function setStudentReviews(array $studentReviews): static
+    public function setStudentReviews(?array $studentReviews): static
     {
         $this->studentReviews = $studentReviews;
         return $this;
