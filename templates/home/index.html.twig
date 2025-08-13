@@ -1,147 +1,103 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ page_title }}{% endblock %}
+{% block title %}Toms Music School - Learn Music Online{% endblock %}
 
-{% block body %}
-<!-- Learn Music Carousel Section -->
-<section class="carousel-section py-5 bg-primary text-white">
-    <div class="container">
-        <div class="text-center mb-5">
-            <h2 class="display-4 fw-bold">Learn Music Online with Expert Teachers</h2>
-            <p class="lead">Discover your musical potential with personalized online lessons</p>
-        </div>
-        
-        <div id="musicCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
-            <div class="carousel-indicators">
-                <button type="button" data-bs-target="#musicCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                <button type="button" data-bs-target="#musicCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                <button type="button" data-bs-target="#musicCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                <button type="button" data-bs-target="#musicCarousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
-            </div>
-            
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <div class="row align-items-center">
-                        <div class="col-lg-6">
-                            <h3 class="carousel-title">Start Free Demo</h3>
-                            <p class="carousel-text">Try our platform with a free 30-minute demo lesson. Experience personalized music instruction from our expert teachers.</p>
-                            <div class="carousel-buttons">
-                                <a href="{{ path('register') }}" class="btn btn-light btn-lg me-3">Start Free Demo</a>
-                                <a href="#how-it-works" class="btn btn-outline-light btn-lg">Learn More</a>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Free Demo" class="img-fluid rounded-3 shadow-lg">
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="carousel-item">
-                    <div class="row align-items-center">
-                        <div class="col-lg-6">
-                            <h3 class="carousel-title">How It Works</h3>
-                            <p class="carousel-text">Get started in 3 simple steps: Book your lesson, connect online, and practice with expert guidance. It's that easy!</p>
-                            <div class="carousel-buttons">
-                                <a href="#how-it-works" class="btn btn-light btn-lg me-3">See How It Works</a>
-                                <a href="{{ path('register') }}" class="btn btn-outline-light btn-lg">Get Started</a>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <img src="https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="How It Works" class="img-fluid rounded-3 shadow-lg">
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="carousel-item">
-                    <div class="row align-items-center">
-                        <div class="col-lg-6">
-                            <h3 class="carousel-title">Master the Piano</h3>
-                            <p class="carousel-text">Learn classical, jazz, and contemporary piano techniques from world-class instructors. Perfect for beginners and advanced players alike.</p>
-                            <div class="carousel-buttons">
-                                <a href="{{ path('register') }}" class="btn btn-light btn-lg me-3">Start Learning Piano</a>
-                                <a href="#plans" class="btn btn-outline-light btn-lg">View Plans</a>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <img src="https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Piano Learning" class="img-fluid rounded-3 shadow-lg">
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="carousel-item">
-                    <div class="row align-items-center">
-                        <div class="col-lg-6">
-                            <h3 class="carousel-title">Rock the Guitar</h3>
-                            <p class="carousel-text">From acoustic to electric, learn strumming, fingerpicking, and advanced techniques. Join the ranks of guitar legends!</p>
-                            <div class="carousel-buttons">
-                                <a href="{{ path('register') }}" class="btn btn-light btn-lg me-3">Start Learning Guitar</a>
-                                <a href="#plans" class="btn btn-outline-light btn-lg">View Plans</a>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Guitar Learning" class="img-fluid rounded-3 shadow-lg">
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <button class="carousel-control-prev" type="button" data-bs-target="#musicCarousel" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#musicCarousel" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
-        </div>
-    </div>
-</section>
-<!-- Hero Section -->
+<!-- Hero Section - Apple Style -->
 <section class="hero-section text-white text-center py-5">
     <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-6">
-                <h1 class="display-4 fw-bold mb-4">Master Your Musical Journey</h1>
-                <p class="lead mb-4">Master your favorite instrument with personalized 1-on-1 lessons from professional musicians. Start your musical journey today!</p>
-                <div class="d-flex gap-3 justify-content-center justify-content-lg-start">
-                    <a href="#plans" class="btn btn-primary btn-lg">Start Free Demo</a>
-                    <a href="#how-it-works" class="btn btn-outline-light btn-lg">How It Works</a>
+                <h1 class="hero-title mb-4">Master Your Musical Journey</h1>
+                <p class="hero-subtitle mb-4">Transform your passion into skill with world-class online music lessons. Learn from Grammy-winning artists and master musicians.</p>
+                <div class="hero-buttons">
+                    <a href="{{ path('register') }}" class="btn btn-primary btn-lg me-3">Start Free Trial</a>
+                    <a href="#how-it-works" class="btn btn-outline-light btn-lg">Watch Demo</a>
                 </div>
             </div>
             <div class="col-lg-6">
-                <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Music Performance - Piano Keys" class="img-fluid rounded-3 shadow-lg">
+                <div class="hero-image-container">
+                    <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Music Performance" class="hero-image">
+                    <div class="hero-image-overlay"></div>
+                </div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- Why Choose Us Section -->
-<section class="py-5 bg-light">
+<!-- Features Grid - Apple Style -->
+<section class="features-section py-5">
     <div class="container">
         <div class="text-center mb-5">
-            <h2 class="display-5 fw-bold">Why Choose Toms Music School?</h2>
-            <p class="lead text-muted">Experience the difference of personalized online music education</p>
+            <h2 class="section-title">Why Musicians Choose Us</h2>
+            <p class="section-subtitle">Experience the future of music education</p>
         </div>
-        <div class="row g-4">
-            <div class="col-md-4">
-                <div class="text-center">
-                    <div class="custom-icon icon-graduate animate-pulse"></div>
-                    <h4>Expert Teachers</h4>
-                    <p class="text-muted">Learn from professional musicians with years of teaching experience</p>
+        
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <h3>Expert Teachers</h3>
+                <p>Learn from Grammy winners, touring musicians, and conservatory professors</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <h3>Flexible Learning</h3>
+                <p>24/7 access to lessons, practice materials, and progress tracking</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h3>Smart Progress</h3>
+                <p>AI-powered practice recommendations and personalized learning paths</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <h3>Community</h3>
+                <p>Connect with fellow musicians, join ensembles, and perform together</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- How It Works - Apple Style -->
+<section class="how-it-works-section py-5 bg-light" id="how-it-works">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="section-title">How It Works</h2>
+            <p class="section-subtitle">Get started in minutes, not months</p>
+        </div>
+        
+        <div class="steps-container">
+            <div class="step-item">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <h3>Choose Your Path</h3>
+                    <p>Select your instrument, skill level, and learning goals</p>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="text-center">
-                    <div class="custom-icon icon-clock animate-bounce"></div>
-                    <h4>Flexible Scheduling</h4>
-                    <p class="text-muted">Book lessons at times that work for you, with easy rescheduling options</p>
+            
+            <div class="step-item">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <h3>Meet Your Teacher</h3>
+                    <p>Get matched with an expert instructor who fits your style</p>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="text-center">
-                    <div class="custom-icon icon-chart animate-pulse"></div>
-                    <h4>Track Progress</h4>
-                    <p class="text-muted">Monitor your improvement with detailed progress tracking and feedback</p>
+            
+            <div class="step-item">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <h3>Start Learning</h3>
+                    <p>Begin your musical journey with personalized lessons</p>
                 </div>
             </div>
         </div>
@@ -152,43 +108,47 @@
 <section class="py-5">
     <div class="container">
         <div class="text-center mb-5">
-            <h2 class="display-5 fw-bold">Learn Your Favorite Instrument</h2>
-            <p class="lead text-muted">From guitar to piano, drums to vocals - we've got you covered</p>
+            <h2 class="section-title">Learn Your Favorite Instrument</h2>
+            <p class="section-subtitle">From guitar to piano, drums to vocals - we've got you covered</p>
         </div>
         <div class="row g-4">
             <div class="col-md-6 col-lg-3">
-                <div class="card h-100 border-0 shadow-sm">
-                    <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" class="card-img-top instrument-image" alt="Guitar player">
-                    <div class="card-body text-center">
-                        <h5 class="card-title">Guitar</h5>
-                        <p class="card-text text-muted">Acoustic, electric, or bass - master the strings</p>
+                <div class="instrument-card">
+                    <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" class="instrument-image" alt="Guitar player">
+                    <div class="instrument-content">
+                        <h5>Guitar</h5>
+                        <p>Acoustic, electric, or bass - master the strings</p>
+                        <a href="{{ path('register') }}" class="btn btn-outline-primary btn-sm">Start Learning</a>
                     </div>
                 </div>
             </div>
             <div class="col-md-6 col-lg-3">
-                <div class="card h-100 border-0 shadow-sm">
-                    <img src="https://images.unsplash.com/photo-1519892300165-cb5542fb47c7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" class="card-img-top instrument-image" alt="Drummer">
-                    <div class="card-body text-center">
-                        <h5 class="card-title">Drums</h5>
-                        <p class="card-text text-muted">Build rhythm and coordination with expert guidance</p>
+                <div class="instrument-card">
+                    <img src="https://images.unsplash.com/photo-1519892300165-cb5542fb47c7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" class="instrument-image" alt="Drummer">
+                    <div class="instrument-content">
+                        <h5>Drums</h5>
+                        <p>Build rhythm and coordination with expert guidance</p>
+                        <a href="{{ path('register') }}" class="btn btn-outline-primary btn-sm">Start Learning</a>
                     </div>
                 </div>
             </div>
             <div class="col-md-6 col-lg-3">
-                <div class="card h-100 border-0 shadow-sm">
-                    <img src="https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" class="card-img-top instrument-image" alt="Piano player">
-                    <div class="card-body text-center">
-                        <h5 class="card-title">Piano</h5>
-                        <p class="card-text text-muted">Classical, jazz, or contemporary piano techniques</p>
+                <div class="instrument-card">
+                    <img src="https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" class="instrument-image" alt="Piano player">
+                    <div class="instrument-content">
+                        <h5>Piano</h5>
+                        <p>Classical, jazz, or contemporary piano techniques</p>
+                        <a href="{{ path('register') }}" class="btn btn-outline-primary btn-sm">Start Learning</a>
                     </div>
                 </div>
             </div>
             <div class="col-md-6 col-lg-3">
-                <div class="card h-100 border-0 shadow-sm">
-                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" class="card-img-top instrument-image" alt="Vocalist">
-                    <div class="card-body text-center">
-                        <h5 class="card-title">Vocals</h5>
-                        <p class="card-text text-muted">Develop your voice and singing technique</p>
+                <div class="instrument-card">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" class="instrument-image" alt="Vocalist">
+                    <div class="instrument-content">
+                        <h5>Vocals</h5>
+                        <p>Develop your voice and singing technique</p>
+                        <a href="{{ path('register') }}" class="btn btn-outline-primary btn-sm">Start Learning</a>
                     </div>
                 </div>
             </div>
@@ -196,135 +156,286 @@
     </div>
 </section>
 
-<!-- How It Works Section -->
-<section id="how-it-works" class="py-5 bg-light">
+<!-- CTA Section -->
+<section class="cta-section py-5 text-white text-center">
     <div class="container">
-        <div class="text-center mb-5">
-            <h2 class="display-5 fw-bold">How It Works</h2>
-            <p class="lead text-muted">Get started with online music lessons in just 3 simple steps</p>
-        </div>
-        <div class="row g-4">
-            <div class="col-md-4">
-                <div class="text-center">
-                    <div class="custom-icon icon-music animate-pulse">1</div>
-                    <h4>Book Your Lesson</h4>
-                    <p class="text-muted">Choose your instrument, teacher, and preferred time slot</p>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="text-center">
-                    <div class="custom-icon icon-star animate-bounce">2</div>
-                    <h4>Connect Online</h4>
-                    <p class="text-muted">Join your lesson via Google Meet with your teacher</p>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="text-center">
-                    <div class="custom-icon icon-chart animate-pulse">3</div>
-                    <h4>Practice & Improve</h4>
-                    <p class="text-muted">Get assignments, track progress, and watch yourself grow</p>
-                </div>
-            </div>
-        </div>
+        <h2 class="mb-4">Ready to Start Your Musical Journey?</h2>
+        <p class="lead mb-4">Join thousands of musicians who've transformed their skills with us</p>
+        <a href="{{ path('register') }}" class="btn btn-light btn-lg">Get Started Today</a>
     </div>
 </section>
 
-<!-- Performance Gallery Section -->
-<section class="py-5 bg-light">
-    <div class="container">
-        <div class="text-center mb-5">
-            <h2 class="display-4 fw-bold text-dark mb-3">See Our Students in Action</h2>
-            <p class="lead text-muted fs-5">Real performances from real students - this could be you!</p>
-        </div>
-        <div class="row g-4 justify-content-center">
-            <div class="col-lg-5 col-md-6">
-                <div class="performance-card">
-                    <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Live performance" class="img-fluid rounded-3 shadow-lg performance-gallery">
-                    <div class="performance-overlay">
-                        <h5 class="text-white fw-bold">Live Performance</h5>
-                        <p class="text-white-50">Capturing the energy on stage</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-5 col-md-6">
-                <div class="performance-card">
-                    <img src="https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Studio session" class="img-fluid rounded-3 shadow-lg performance-gallery">
-                    <div class="performance-overlay">
-                        <h5 class="text-white fw-bold">Studio Session</h5>
-                        <p class="text-white-50">Professional recording environment</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Testimonials Section -->
-<section class="py-5 bg-light">
-    <div class="container">
-        <div class="text-center mb-5">
-            <h2 class="display-5 fw-bold">What Our Students Say</h2>
-            <p class="lead text-muted">Don't just take our word for it - hear from our community</p>
-        </div>
-        <div class="row g-4">
-            <div class="col-md-4">
-                <div class="card h-100 border-0 shadow-sm">
-                    <div class="card-body text-center">
-                        <div class="stars mb-3">
-                            <i class="fas fa-star text-warning"></i>
-                            <i class="fas fa-star text-warning"></i>
-                            <i class="fas fa-star text-warning"></i>
-                            <i class="fas fa-star text-warning"></i>
-                            <i class="fas fa-star text-warning"></i>
-                        </div>
-                        <p class="card-text">"My guitar teacher is amazing! I've learned more in 3 months than I did in a year on my own."</p>
-                        <h6 class="card-title">- Sarah M.</h6>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card h-100 border-0 shadow-sm">
-                    <div class="card-body text-center">
-                        <div class="stars mb-3">
-                            <i class="fas fa-star text-warning"></i>
-                            <i class="fas fa-star text-warning"></i>
-                            <i class="fas fa-star text-warning"></i>
-                            <i class="fas fa-star text-warning"></i>
-                            <i class="fas fa-star text-warning"></i>
-                        </div>
-                        <p class="card-text">"The progress tracking system is incredible. I can see exactly how much I've improved!"</p>
-                        <h6 class="card-title">- Mike R.</h6>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card h-100 border-0 shadow-sm">
-                    <div class="card-body text-center">
-                        <div class="stars mb-3">
-                            <i class="fas fa-star text-warning"></i>
-                            <i class="fas fa-star text-warning"></i>
-                            <i class="fas fa-star text-warning"></i>
-                            <i class="fas fa-star text-warning"></i>
-                            <i class="fas fa-star text-warning"></i>
-                        </div>
-                        <p class="card-text">"Flexible scheduling and amazing teachers. Perfect for my busy lifestyle!"</p>
-                        <h6 class="card-title">- Lisa K.</h6>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Call to Action Section -->
-<section id="plans" class="py-5 bg-secondary text-white">
-    <div class="container text-center">
-        <h2 class="display-5 fw-bold mb-4">Ready to Start Your Musical Journey?</h2>
-        <p class="lead mb-4">Join thousands of students who are already making music with us</p>
-        <div class="d-flex gap-3 justify-content-center">
-            <a href="/plans" class="btn btn-light btn-lg">View Plans</a>
-            <a href="/teachers" class="btn btn-outline-light btn-lg">Meet Our Teachers</a>
-        </div>
-    </div>
-</section>
+{% block stylesheets %}
+<style>
+    /* Hero Section Styles */
+    .hero-section {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 80vh;
+        display: flex;
+        align-items: center;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .hero-title {
+        font-size: 3.5rem;
+        font-weight: 700;
+        line-height: 1.2;
+        margin-bottom: 1.5rem;
+        text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    }
+    
+    .hero-subtitle {
+        font-size: 1.25rem;
+        line-height: 1.6;
+        opacity: 0.95;
+        margin-bottom: 2rem;
+    }
+    
+    .hero-buttons .btn {
+        padding: 0.875rem 2rem;
+        font-weight: 600;
+        border-radius: 50px;
+        transition: all 0.3s ease;
+    }
+    
+    .hero-buttons .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.2);
+    }
+    
+    .hero-image-container {
+        position: relative;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 2rem 4rem rgba(0, 0, 0, 0.3);
+    }
+    
+    .hero-image {
+        width: 100%;
+        height: auto;
+        transition: transform 0.3s ease;
+    }
+    
+    .hero-image-container:hover .hero-image {
+        transform: scale(1.05);
+    }
+    
+    .hero-image-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(45deg, rgba(102, 126, 234, 0.3), rgba(118, 75, 162, 0.3));
+        border-radius: 20px;
+    }
+    
+    /* Section Styles */
+    .section-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: #2d3748;
+        margin-bottom: 1rem;
+    }
+    
+    .section-subtitle {
+        font-size: 1.125rem;
+        color: #718096;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+    
+    /* Features Grid */
+    .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 2rem;
+        margin-top: 3rem;
+    }
+    
+    .feature-card {
+        text-align: center;
+        padding: 2rem;
+        background: white;
+        border-radius: 16px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        transition: all 0.3s ease;
+        border: 1px solid #f7fafc;
+    }
+    
+    .feature-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 20px 25px rgba(0, 0, 0, 0.1);
+    }
+    
+    .feature-icon {
+        width: 80px;
+        height: 80px;
+        margin: 0 auto 1.5rem;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 2rem;
+    }
+    
+    .feature-card h3 {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: #2d3748;
+        margin-bottom: 1rem;
+    }
+    
+    .feature-card p {
+        color: #718096;
+        line-height: 1.6;
+    }
+    
+    /* How It Works */
+    .how-it-works-section {
+        background: #f7fafc;
+    }
+    
+    .steps-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        max-width: 900px;
+        margin: 0 auto;
+        position: relative;
+    }
+    
+    .step-item {
+        text-align: center;
+        flex: 1;
+        position: relative;
+        z-index: 2;
+    }
+    
+    .step-number {
+        width: 60px;
+        height: 60px;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin: 0 auto 1.5rem;
+        box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+    }
+    
+    .step-content h3 {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: #2d3748;
+        margin-bottom: 0.75rem;
+    }
+    
+    .step-content p {
+        color: #718096;
+        line-height: 1.6;
+    }
+    
+    /* Instrument Cards */
+    .instrument-card {
+        background: white;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        transition: all 0.3s ease;
+        border: 1px solid #f7fafc;
+        height: 100%;
+    }
+    
+    .instrument-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 20px rgba(0, 0, 0, 0.1);
+    }
+    
+    .instrument-image {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+    }
+    
+    .instrument-card:hover .instrument-image {
+        transform: scale(1.05);
+    }
+    
+    .instrument-content {
+        padding: 1.5rem;
+        text-align: center;
+    }
+    
+    .instrument-content h5 {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: #2d3748;
+        margin-bottom: 0.75rem;
+    }
+    
+    .instrument-content p {
+        color: #718096;
+        margin-bottom: 1rem;
+        line-height: 1.6;
+    }
+    
+    /* CTA Section */
+    .cta-section {
+        background: linear-gradient(135deg, #2d3748 0%, #4a5568 100%);
+    }
+    
+    .cta-section h2 {
+        font-size: 2.5rem;
+        font-weight: 700;
+    }
+    
+    .cta-section .btn {
+        padding: 1rem 2.5rem;
+        font-weight: 600;
+        border-radius: 50px;
+        transition: all 0.3s ease;
+    }
+    
+    .cta-section .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.2);
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .hero-title {
+            font-size: 2.5rem;
+        }
+        
+        .section-title {
+            font-size: 2rem;
+        }
+        
+        .steps-container {
+            flex-direction: column;
+            gap: 2rem;
+        }
+        
+        .features-grid {
+            grid-template-columns: 1fr;
+        }
+        
+        .hero-buttons {
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .hero-buttons .btn {
+            width: 100%;
+        }
+    }
+</style>
 {% endblock %}
