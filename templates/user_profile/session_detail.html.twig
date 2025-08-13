@@ -1,0 +1,829 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Session Details - Toms Music School{% endblock %}
+
+{% block body %}
+<style>
+.session-container {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    min-height: 100vh;
+    padding-top: 80px;
+}
+
+.session-header {
+    background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+    color: white;
+    padding: 2rem 0;
+    margin-bottom: 2rem;
+}
+
+.session-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.session-subtitle {
+    font-size: 1.1rem;
+    opacity: 0.9;
+    margin-bottom: 0;
+}
+
+.class-selector {
+    background: white;
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+}
+
+.class-selector-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.class-selector-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #495057;
+}
+
+.class-selector-nav {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.class-selector-nav button {
+    background: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #6c757d;
+    transition: all 0.3s ease;
+}
+
+.class-selector-nav button:hover {
+    background: #007bff;
+    color: white;
+    border-color: #007bff;
+}
+
+.class-selector-list {
+    display: flex;
+    gap: 1rem;
+    overflow-x: auto;
+    padding: 0.5rem 0;
+}
+
+.class-selector-item {
+    min-width: 120px;
+    background: white;
+    border: 2px solid #e9ecef;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    text-align: center;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+    cursor: pointer;
+}
+
+.class-selector-item:hover {
+    border-color: #007bff;
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 123, 255, 0.1);
+}
+
+.class-selector-item.selected {
+    border-color: #007bff;
+    background: #f8f9ff;
+}
+
+.class-selector-date {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #495057;
+    margin-bottom: 0.5rem;
+}
+
+.class-selector-status {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.25rem;
+    margin-bottom: 1rem;
+}
+
+.class-selector-status.present {
+    color: #28a745;
+}
+
+.class-selector-status.missed {
+    color: #dc3545;
+}
+
+.class-selector-status.upcoming {
+    color: #ffc107;
+}
+
+.class-selector-actions {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.class-selector-action {
+    background: none;
+    border: none;
+    color: #6c757d;
+    padding: 0.25rem;
+    border-radius: 0.25rem;
+    transition: all 0.3s ease;
+}
+
+.class-selector-action:hover {
+    color: #007bff;
+    background: #f8f9fa;
+}
+
+.class-selector-action.has-attachments {
+    color: #007bff;
+}
+
+.session-details {
+    background: white;
+    border-radius: 0.75rem;
+    padding: 2rem;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    border: 1px solid #e9ecef;
+}
+
+.session-details-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.session-details-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #212529;
+    margin: 0;
+}
+
+.close-button {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: #6c757d;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    transition: all 0.3s ease;
+}
+
+.close-button:hover {
+    background: #f8f9fa;
+    color: #495057;
+}
+
+.session-info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.session-info-card {
+    background: #f8f9fa;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    border: 1px solid #e9ecef;
+}
+
+.session-info-header {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #495057;
+    margin-bottom: 1rem;
+}
+
+.attendance-status {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.attendance-status.present {
+    color: #28a745;
+}
+
+.attendance-status.missed {
+    color: #dc3545;
+}
+
+.attendance-percentage {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #28a745;
+    margin-bottom: 0.5rem;
+}
+
+.attendance-note {
+    font-size: 0.875rem;
+    color: #6c757d;
+}
+
+.session-log-bar {
+    background: #e9ecef;
+    height: 8px;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.session-log-progress {
+    background: #007bff;
+    height: 100%;
+    border-radius: 4px;
+    transition: width 0.3s ease;
+}
+
+.session-log-details {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.875rem;
+    color: #6c757d;
+}
+
+.recording-button {
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.recording-button:hover {
+    background: #0056b3;
+    transform: translateY(-2px);
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 123, 255, 0.3);
+}
+
+.session-materials {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid #e9ecef;
+}
+
+.materials-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.materials-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #495057;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.download-all {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.download-all:hover {
+    color: #0056b3;
+}
+
+.materials-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+}
+
+.materials-table th {
+    background: #f8f9fa;
+    padding: 1rem;
+    text-align: left;
+    font-weight: 600;
+    color: #495057;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.materials-table td {
+    padding: 1rem;
+    border-bottom: 1px solid #e9ecef;
+    color: #495057;
+}
+
+.materials-table tr:last-child td {
+    border-bottom: none;
+}
+
+.materials-table tr:hover {
+    background: #f8f9fa;
+}
+
+.material-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.material-icon {
+    color: #6c757d;
+}
+
+.download-link {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.download-link:hover {
+    color: #0056b3;
+}
+
+.assignments-section {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid #e9ecef;
+}
+
+.assignments-header {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #495057;
+    margin-bottom: 1.5rem;
+}
+
+.assignment-card {
+    background: #f8f9fa;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid #e9ecef;
+}
+
+.assignment-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #212529;
+    margin-bottom: 0.5rem;
+}
+
+.assignment-description {
+    color: #6c757d;
+    margin-bottom: 1rem;
+}
+
+.assignment-meta {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 1rem;
+    font-size: 0.875rem;
+}
+
+.assignment-meta-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #6c757d;
+}
+
+.assignment-meta-item i {
+    color: #007bff;
+    width: 16px;
+}
+
+.assignment-submission {
+    background: white;
+    border: 1px solid #e9ecef;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    margin-top: 1rem;
+}
+
+.submission-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form-label {
+    font-weight: 500;
+    color: #495057;
+}
+
+.form-control {
+    padding: 0.75rem;
+    border: 1px solid #e9ecef;
+    border-radius: 0.25rem;
+    transition: border-color 0.3s ease;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.submit-button {
+    background: #28a745;
+    color: white;
+    border: none;
+    border-radius: 0.25rem;
+    padding: 0.75rem 1.5rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    align-self: flex-start;
+}
+
+.submit-button:hover {
+    background: #218838;
+    transform: translateY(-1px);
+}
+
+.comments-section {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid #e9ecef;
+}
+
+.comments-header {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #495057;
+    margin-bottom: 1.5rem;
+}
+
+.comment {
+    background: #f8f9fa;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-left: 4px solid #007bff;
+}
+
+.comment-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.comment-author {
+    font-weight: 600;
+    color: #212529;
+}
+
+.comment-time {
+    font-size: 0.875rem;
+    color: #6c757d;
+}
+
+.comment-content {
+    color: #495057;
+    line-height: 1.5;
+}
+
+@media (max-width: 768px) {
+    .session-info-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .class-selector-list {
+        gap: 0.5rem;
+    }
+    
+    .class-selector-item {
+        min-width: 100px;
+        padding: 0.75rem;
+    }
+    
+    .materials-table {
+        font-size: 0.875rem;
+    }
+    
+    .materials-table th,
+    .materials-table td {
+        padding: 0.75rem 0.5rem;
+    }
+}
+</style>
+
+<div class="session-container">
+    <!-- Session Header -->
+    <div class="session-header">
+        <div class="container">
+            <h1 class="session-title">Session Details</h1>
+            <p class="session-subtitle">View detailed information about your music class sessions</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Class Selector -->
+        <div class="class-selector">
+            <div class="class-selector-header">
+                <h3 class="class-selector-title">Select Session</h3>
+                <div class="class-selector-nav">
+                    <button type="button" class="class-selector-prev">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button type="button" class="class-selector-next">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="class-selector-list">
+                {% for session in sessions %}
+                    <div class="class-selector-item {% if session.id == selectedSession.id %}selected{% endif %}" 
+                         data-session-id="{{ session.id }}">
+                        <div class="class-selector-date">{{ session.date|date('M d') }}</div>
+                        <div class="class-selector-status {{ session.status|lower }}">
+                            {% if session.status == 'Present' %}
+                                <i class="fas fa-check-circle"></i>
+                                <span>Present</span>
+                            {% elseif session.status == 'Missed' %}
+                                <i class="fas fa-times-circle"></i>
+                                <span>Missed</span>
+                            {% else %}
+                                <i class="fas fa-clock"></i>
+                                <span>Upcoming</span>
+                            {% endif %}
+                        </div>
+                        <div class="class-selector-actions">
+                            <button class="class-selector-action" title="Join Class">
+                                <i class="fas fa-play-circle"></i>
+                            </button>
+                            {% if session.hasAttachments %}
+                                <button class="class-selector-action has-attachments" title="Session Materials">
+                                    <i class="fas fa-paperclip"></i>
+                                </button>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Session Details -->
+        <div class="session-details">
+            <div class="session-details-header">
+                <h2 class="session-details-title">{{ selectedSession.title }}</h2>
+                <button class="close-button" onclick="history.back()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <!-- Session Info Grid -->
+            <div class="session-info-grid">
+                <!-- Attendance -->
+                <div class="session-info-card">
+                    <h4 class="session-info-header">Your Attendance</h4>
+                    <div class="attendance-status {{ selectedSession.attendanceStatus|lower }}">
+                        {% if selectedSession.attendanceStatus == 'Present' %}
+                            <i class="fas fa-check-circle"></i>
+                            <span>Present</span>
+                        {% else %}
+                            <i class="fas fa-times-circle"></i>
+                            <span>Missed</span>
+                        {% endif %}
+                    </div>
+                    <div class="attendance-percentage">{{ selectedSession.attendancePercentage }}% Attended</div>
+                    <div class="attendance-note">(min. 50%)</div>
+                </div>
+
+                <!-- Session Log -->
+                <div class="session-info-card">
+                    <h4 class="session-info-header">Session Log</h4>
+                    <div class="session-log-bar">
+                        <div class="session-log-progress" style="width: {{ selectedSession.attendancePercentage }}%"></div>
+                    </div>
+                    <div class="session-log-details">
+                        <span>Attended: {{ selectedSession.attendedDuration }}</span>
+                        <span>Session: {{ selectedSession.totalDuration }}</span>
+                    </div>
+                    <div class="session-log-details">
+                        <span>({{ selectedSession.attendancePercentage }}%)</span>
+                    </div>
+                </div>
+
+                <!-- Recording -->
+                <div class="session-info-card">
+                    <h4 class="session-info-header">Recording</h4>
+                    {% if selectedSession.hasRecording %}
+                        <button class="recording-button" onclick="watchRecording()">
+                            <i class="fas fa-play"></i>
+                            Watch Recording
+                        </button>
+                    {% else %}
+                        <p class="text-muted">No recording available for this session.</p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Session Materials -->
+            {% if selectedSession.materials is not empty %}
+                <div class="session-materials">
+                    <div class="materials-header">
+                        <h4 class="materials-title">
+                            <i class="fas fa-paperclip"></i>
+                            Session Materials
+                        </h4>
+                        <a href="#" class="download-all">Download All</a>
+                    </div>
+
+                    <table class="materials-table">
+                        <thead>
+                            <tr>
+                                <th>Item Name</th>
+                                <th>Type</th>
+                                <th>Updated On</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for material in selectedSession.materials %}
+                                <tr>
+                                    <td>
+                                        <div class="material-item">
+                                            <i class="fas fa-paperclip material-icon"></i>
+                                            {{ material.name }}
+                                        </div>
+                                    </td>
+                                    <td>{{ material.type }}</td>
+                                    <td>{{ material.updatedOn|date('d/m/Y') }}</td>
+                                    <td>
+                                        <a href="{{ material.downloadUrl }}" class="download-link">Download</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% endif %}
+
+            <!-- Assignments -->
+            {% if selectedSession.assignments is not empty %}
+                <div class="assignments-section">
+                    <h4 class="assignments-header">Assignments</h4>
+                    {% for assignment in selectedSession.assignments %}
+                        <div class="assignment-card">
+                            <h5 class="assignment-title">{{ assignment.title }}</h5>
+                            <p class="assignment-description">{{ assignment.description }}</p>
+                            
+                            <div class="assignment-meta">
+                                <div class="assignment-meta-item">
+                                    <i class="fas fa-calendar"></i>
+                                    <span>Due: {{ assignment.dueDate|date('M d, Y') }}</span>
+                                </div>
+                                <div class="assignment-meta-item">
+                                    <i class="fas fa-clock"></i>
+                                    <span>{{ assignment.dueTime }}</span>
+                                </div>
+                                <div class="assignment-meta-item">
+                                    <i class="fas fa-star"></i>
+                                    <span>{{ assignment.points }} points</span>
+                                </div>
+                            </div>
+
+                            <!-- Assignment Submission -->
+                            <div class="assignment-submission">
+                                <h6>Submit Your Assignment</h6>
+                                <form class="submission-form">
+                                    <div class="form-group">
+                                        <label class="form-label">Assignment File</label>
+                                        <input type="file" class="form-control" accept=".pdf,.doc,.docx,.txt,.mp3,.wav">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Additional Notes</label>
+                                        <textarea class="form-control" rows="3" placeholder="Any additional comments or notes..."></textarea>
+                                    </div>
+                                    <button type="submit" class="submit-button">
+                                        <i class="fas fa-upload me-2"></i>Submit Assignment
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            <!-- Comments -->
+            <div class="comments-section">
+                <h4 class="comments-header">Comments & Feedback</h4>
+                {% if selectedSession.comments is not empty %}
+                    {% for comment in selectedSession.comments %}
+                        <div class="comment">
+                            <div class="comment-header">
+                                <span class="comment-author">{{ comment.author }}</span>
+                                <span class="comment-time">{{ comment.timestamp|date('M d, Y H:i') }}</span>
+                            </div>
+                            <div class="comment-content">{{ comment.content }}</div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p class="text-muted">No comments yet. Be the first to add a comment!</p>
+                {% endif %}
+
+                <!-- Add Comment Form -->
+                <div class="comment-form mt-3">
+                    <form>
+                        <div class="form-group">
+                            <label class="form-label">Add a Comment</label>
+                            <textarea class="form-control" rows="3" placeholder="Share your thoughts or ask a question..."></textarea>
+                        </div>
+                        <button type="submit" class="submit-button">
+                            <i class="fas fa-comment me-2"></i>Post Comment
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Class selector functionality
+    const classSelectorItems = document.querySelectorAll('.class-selector-item');
+    classSelectorItems.forEach(item => {
+        item.addEventListener('click', function() {
+            const sessionId = this.getAttribute('data-session-id');
+            
+            // Remove selected class from all items
+            classSelectorItems.forEach(i => i.classList.remove('selected'));
+            
+            // Add selected class to clicked item
+            this.classList.add('selected');
+            
+            // Load session details (in a real app, this would make an AJAX call)
+            loadSessionDetails(sessionId);
+        });
+    });
+
+    // Session navigation
+    const classSelectorList = document.querySelector('.class-selector-list');
+    const prevBtn = document.querySelector('.class-selector-prev');
+    const nextBtn = document.querySelector('.class-selector-next');
+    
+    if (prevBtn && nextBtn) {
+        prevBtn.addEventListener('click', () => {
+            classSelectorList.scrollBy({ left: -200, behavior: 'smooth' });
+        });
+        
+        nextBtn.addEventListener('click', () => {
+            classSelectorList.scrollBy({ left: 200, behavior: 'smooth' });
+        });
+    }
+});
+
+function loadSessionDetails(sessionId) {
+    // In a real application, this would make an AJAX call to load session details
+    console.log('Loading session details for:', sessionId);
+}
+
+function watchRecording() {
+    // In a real application, this would open the recording player
+    alert('Opening recording player...');
+}
+</script>
+{% endblock %}

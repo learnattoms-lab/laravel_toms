@@ -1,0 +1,505 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tutor Dashboard - Toms Music School{% endblock %}
+
+{% block body %}
+<div class="tutor-dashboard">
+    <!-- Header Section -->
+    <div class="tutor-header">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <h1 class="text-white mb-2">
+                        <i class="fas fa-chalkboard-teacher me-3"></i>
+                        Welcome back, {{ app.user.firstName|default('Teacher') }}!
+                    </h1>
+                    <p class="text-white-50 mb-0">Manage your students, schedule, and teaching progress</p>
+                </div>
+                <div class="col-md-4 text-md-end">
+                    <div class="tutor-stats">
+                        <div class="stat-item">
+                            <span class="stat-number">{{ app.user.students|default([])|length }}</span>
+                            <span class="stat-label">Students</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">{{ app.user.rating|default('5.0') }}</span>
+                            <span class="stat-label">Rating</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-4">
+        <!-- Today's Sessions -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">
+                            <i class="fas fa-calendar-day me-2 text-primary"></i>
+                            Today's Sessions
+                        </h5>
+                        <a href="#" class="btn btn-outline-primary btn-sm">View All</a>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <div class="session-card upcoming">
+                                    <div class="session-time">10:00 AM</div>
+                                    <div class="session-info">
+                                        <h6 class="mb-1">Piano Lesson - Sarah Johnson</h6>
+                                        <p class="text-muted mb-1">Beginner Level • 45 min</p>
+                                        <span class="badge bg-success">Confirmed</span>
+                                    </div>
+                                    <div class="session-actions">
+                                        <a href="#" class="btn btn-sm btn-outline-primary">Join Session</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="session-card upcoming">
+                                    <div class="session-time">2:30 PM</div>
+                                    <div class="session-info">
+                                        <h6 class="mb-1">Guitar Lesson - Mike Chen</h6>
+                                        <p class="text-muted mb-1">Intermediate Level • 60 min</p>
+                                        <span class="badge bg-warning">Pending</span>
+                                    </div>
+                                    <div class="session-actions">
+                                        <a href="#" class="btn btn-sm btn-outline-secondary">Confirm</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Student Management -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">
+                            <i class="fas fa-users me-2 text-primary"></i>
+                            My Students
+                        </h5>
+                        <a href="#" class="btn btn-primary btn-sm">Add New Student</a>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <div class="student-card">
+                                    <div class="student-avatar">
+                                        <img src="/images/default-avatar.png" alt="Student Avatar" class="rounded-circle">
+                                    </div>
+                                    <div class="student-info">
+                                        <h6 class="mb-1">Sarah Johnson</h6>
+                                        <p class="text-muted mb-1">Piano • Beginner</p>
+                                        <div class="progress mb-2" style="height: 6px;">
+                                            <div class="progress-bar" role="progressbar" style="width: 65%"></div>
+                                        </div>
+                                        <small class="text-muted">65% Complete</small>
+                                    </div>
+                                    <div class="student-actions">
+                                        <a href="#" class="btn btn-sm btn-outline-primary">View Progress</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <div class="student-card">
+                                    <div class="student-avatar">
+                                        <img src="/images/default-avatar.png" alt="Student Avatar" class="rounded-circle">
+                                    </div>
+                                    <div class="student-info">
+                                        <h6 class="mb-1">Mike Chen</h6>
+                                        <p class="text-muted mb-1">Guitar • Intermediate</p>
+                                        <div class="progress mb-2" style="height: 6px;">
+                                            <div class="progress-bar" role="progressbar" style="width: 45%"></div>
+                                        </div>
+                                        <small class="text-muted">45% Complete</small>
+                                    </div>
+                                    <div class="student-actions">
+                                        <a href="#" class="btn btn-sm btn-outline-primary">View Progress</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <div class="student-card">
+                                    <div class="student-avatar">
+                                        <img src="/images/default-avatar.png" alt="Student Avatar" class="rounded-circle">
+                                    </div>
+                                    <div class="student-info">
+                                        <h6 class="mb-1">Emma Davis</h6>
+                                        <p class="text-muted mb-1">Violin • Advanced</p>
+                                        <div class="progress mb-2" style="height: 6px;">
+                                            <div class="progress-bar" role="progressbar" style="width: 80%"></div>
+                                        </div>
+                                        <small class="text-muted">80% Complete</small>
+                                    </div>
+                                    <div class="student-actions">
+                                        <a href="#" class="btn btn-sm btn-outline-primary">View Progress</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Weekly Schedule & Quick Actions -->
+        <div class="row">
+            <!-- Weekly Schedule -->
+            <div class="col-lg-8 mb-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0">
+                            <i class="fas fa-calendar-week me-2 text-primary"></i>
+                            Weekly Schedule
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="schedule-grid">
+                            <div class="schedule-day">
+                                <div class="day-header">Monday</div>
+                                <div class="day-sessions">
+                                    <div class="session-item">
+                                        <span class="time">9:00 AM</span>
+                                        <span class="student">Sarah J.</span>
+                                        <span class="instrument">Piano</span>
+                                    </div>
+                                    <div class="session-item">
+                                        <span class="time">3:00 PM</span>
+                                        <span class="student">Mike C.</span>
+                                        <span class="instrument">Guitar</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="schedule-day">
+                                <div class="day-header">Tuesday</div>
+                                <div class="day-sessions">
+                                    <div class="session-item">
+                                        <span class="time">10:30 AM</span>
+                                        <span class="student">Emma D.</span>
+                                        <span class="instrument">Violin</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="schedule-day">
+                                <div class="day-header">Wednesday</div>
+                                <div class="day-sessions">
+                                    <div class="session-item">
+                                        <span class="time">2:00 PM</span>
+                                        <span class="student">Sarah J.</span>
+                                        <span class="instrument">Piano</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="schedule-day">
+                                <div class="day-header">Thursday</div>
+                                <div class="day-sessions">
+                                    <div class="session-item">
+                                        <span class="time">4:30 PM</span>
+                                        <span class="student">Mike C.</span>
+                                        <span class="instrument">Guitar</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="schedule-day">
+                                <div class="day-header">Friday</div>
+                                <div class="day-sessions">
+                                    <div class="session-item">
+                                        <span class="time">11:00 AM</span>
+                                        <span class="student">Emma D.</span>
+                                        <span class="instrument">Violin</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="col-lg-4 mb-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0">
+                            <i class="fas fa-bolt me-2 text-primary"></i>
+                            Quick Actions
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="quick-actions">
+                            <a href="#" class="quick-action-item">
+                                <div class="action-icon bg-primary">
+                                    <i class="fas fa-plus text-white"></i>
+                                </div>
+                                <div class="action-text">
+                                    <h6 class="mb-1">Schedule Session</h6>
+                                    <small class="text-muted">Book new lesson</small>
+                                </div>
+                            </a>
+                            <a href="#" class="quick-action-item">
+                                <div class="action-icon bg-success">
+                                    <i class="fas fa-chart-line text-white"></i>
+                                </div>
+                                <div class="action-text">
+                                    <h6 class="mb-1">View Reports</h6>
+                                    <small class="text-muted">Student progress</small>
+                                </div>
+                            </a>
+                            <a href="#" class="quick-action-item">
+                                <div class="action-icon bg-info">
+                                    <i class="fas fa-book text-white"></i>
+                                </div>
+                                <div class="action-text">
+                                    <h6 class="mb-1">Lesson Materials</h6>
+                                    <small class="text-muted">Upload resources</small>
+                                </div>
+                            </a>
+                            <a href="#" class="quick-action-item">
+                                <div class="action-icon bg-warning">
+                                    <i class="fas fa-cog text-white"></i>
+                                </div>
+                                <div class="action-text">
+                                    <h6 class="mb-1">Settings</h6>
+                                    <small class="text-muted">Profile & preferences</small>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.tutor-dashboard {
+    background-color: #f8f9fa;
+    min-height: 100vh;
+}
+
+.tutor-header {
+    background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+    padding: 3rem 0;
+    margin-bottom: 2rem;
+}
+
+.tutor-stats {
+    display: flex;
+    gap: 2rem;
+    justify-content: flex-end;
+}
+
+.stat-item {
+    text-align: center;
+}
+
+.stat-number {
+    display: block;
+    font-size: 2rem;
+    font-weight: bold;
+    color: white;
+}
+
+.stat-label {
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.session-card {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    border: 1px solid #e9ecef;
+    border-radius: 0.5rem;
+    background: white;
+    transition: all 0.3s ease;
+}
+
+.session-card:hover {
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
+}
+
+.session-time {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #28a745;
+    min-width: 80px;
+}
+
+.session-info {
+    flex: 1;
+    margin: 0 1rem;
+}
+
+.session-actions {
+    margin-left: auto;
+}
+
+.student-card {
+    background: white;
+    border: 1px solid #e9ecef;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.student-card:hover {
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
+}
+
+.student-avatar img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    margin-bottom: 1rem;
+}
+
+.student-info {
+    margin-bottom: 1rem;
+}
+
+.student-actions {
+    margin-top: 1rem;
+}
+
+.schedule-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1rem;
+}
+
+.schedule-day {
+    border: 1px solid #e9ecef;
+    border-radius: 0.5rem;
+    overflow: hidden;
+}
+
+.day-header {
+    background-color: #f8f9fa;
+    padding: 0.75rem;
+    text-align: center;
+    font-weight: 600;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.day-sessions {
+    padding: 0.75rem;
+    min-height: 120px;
+}
+
+.session-item {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0.5rem;
+    padding: 0.5rem;
+    background-color: #f8f9fa;
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
+}
+
+.session-item .time {
+    font-weight: 600;
+    color: #28a745;
+}
+
+.session-item .student {
+    color: #495057;
+}
+
+.session-item .instrument {
+    color: #6c757d;
+    font-style: italic;
+}
+
+.quick-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.quick-action-item {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    border: 1px solid #e9ecef;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.3s ease;
+}
+
+.quick-action-item:hover {
+    background-color: #f8f9fa;
+    text-decoration: none;
+    color: inherit;
+}
+
+.action-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 1rem;
+}
+
+.action-text h6 {
+    margin: 0;
+    color: #495057;
+}
+
+.action-text small {
+    color: #6c757d;
+}
+
+.card {
+    border: none;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    border-radius: 0.75rem;
+}
+
+.card-header {
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #e9ecef;
+    border-radius: 0.75rem 0.75rem 0 0 !important;
+}
+
+@media (max-width: 768px) {
+    .schedule-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .tutor-stats {
+        justify-content: center;
+        margin-top: 1rem;
+    }
+    
+    .session-card {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .session-time {
+        margin-bottom: 0.5rem;
+    }
+    
+    .session-info {
+        margin: 0.5rem 0;
+    }
+    
+    .session-actions {
+        margin-left: 0;
+        margin-top: 0.5rem;
+    }
+}
+</style>
+{% endblock %}

@@ -1,0 +1,509 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}My Learning - Toms Music School{% endblock %}
+
+{% block body %}
+<style>
+.learning-container {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    min-height: 100vh;
+    padding-top: 80px;
+}
+
+.learning-header {
+    background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+    color: white;
+    padding: 2rem 0;
+    margin-bottom: 2rem;
+}
+
+.learning-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.learning-subtitle {
+    font-size: 1.1rem;
+    opacity: 0.9;
+    margin-bottom: 0;
+}
+
+.nav-tabs {
+    border-bottom: 2px solid #e9ecef;
+    margin-bottom: 2rem;
+}
+
+.nav-tabs .nav-link {
+    border: none;
+    color: #6c757d;
+    font-weight: 500;
+    padding: 1rem 2rem;
+    margin-right: 1rem;
+    border-radius: 0.5rem 0.5rem 0 0;
+    transition: all 0.3s ease;
+}
+
+.nav-tabs .nav-link.active {
+    background: #007bff;
+    color: white;
+    border-bottom: 2px solid #007bff;
+}
+
+.nav-tabs .nav-link:hover {
+    background: #e9ecef;
+    color: #495057;
+}
+
+.class-card {
+    background: white;
+    border-radius: 0.75rem;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    border: 1px solid #e9ecef;
+}
+
+.class-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.class-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #212529;
+    margin-bottom: 0.5rem;
+}
+
+.class-details {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.class-detail-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #6c757d;
+}
+
+.class-detail-item i {
+    color: #007bff;
+    width: 20px;
+}
+
+.attendance-summary {
+    text-align: center;
+    background: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    border: 1px solid #e9ecef;
+}
+
+.attendance-circle {
+    width: 80px;
+    height: 80px;
+    background: #28a745;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.attendance-rules {
+    text-align: left;
+    margin-top: 1rem;
+}
+
+.attendance-rules ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.attendance-rules li {
+    padding: 0.25rem 0;
+    color: #6c757d;
+    font-size: 0.9rem;
+}
+
+.attendance-rules li:before {
+    content: "•";
+    color: #28a745;
+    font-weight: bold;
+    margin-right: 0.5rem;
+}
+
+.sessions-section {
+    margin-top: 2rem;
+}
+
+.sessions-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.sessions-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #495057;
+}
+
+.sessions-nav {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.sessions-nav button {
+    background: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #6c757d;
+    transition: all 0.3s ease;
+}
+
+.sessions-nav button:hover {
+    background: #007bff;
+    color: white;
+    border-color: #007bff;
+}
+
+.sessions-list {
+    display: flex;
+    gap: 1rem;
+    overflow-x: auto;
+    padding: 0.5rem 0;
+}
+
+.session-card {
+    min-width: 120px;
+    background: white;
+    border: 1px solid #e9ecef;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    text-align: center;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+.session-card:hover {
+    border-color: #007bff;
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 123, 255, 0.1);
+}
+
+.session-date {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #495057;
+    margin-bottom: 0.5rem;
+}
+
+.session-status {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.25rem;
+    margin-bottom: 1rem;
+}
+
+.session-status.present {
+    color: #28a745;
+}
+
+.session-status.missed {
+    color: #dc3545;
+}
+
+.session-status.upcoming {
+    color: #ffc107;
+}
+
+.session-actions {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.session-action {
+    background: none;
+    border: none;
+    color: #6c757d;
+    padding: 0.25rem;
+    border-radius: 0.25rem;
+    transition: all 0.3s ease;
+}
+
+.session-action:hover {
+    color: #007bff;
+    background: #f8f9fa;
+}
+
+.session-action.has-attachments {
+    color: #007bff;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 3rem;
+    color: #6c757d;
+}
+
+.empty-state i {
+    font-size: 3rem;
+    color: #dee2e6;
+    margin-bottom: 1rem;
+}
+
+@media (max-width: 768px) {
+    .class-details {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .sessions-list {
+        gap: 0.5rem;
+    }
+    
+    .session-card {
+        min-width: 100px;
+        padding: 0.75rem;
+    }
+}
+</style>
+
+<div class="learning-container">
+    <!-- Learning Header -->
+    <div class="learning-header">
+        <div class="container">
+            <h1 class="learning-title">My Learning</h1>
+            <p class="learning-subtitle">Track your progress and manage your music classes</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Navigation Tabs -->
+        <ul class="nav nav-tabs" id="learningTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="active-tab" data-bs-toggle="tab" data-bs-target="#active" type="button" role="tab">
+                    Active Classes
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="completed-tab" data-bs-toggle="tab" data-bs-target="#completed" type="button" role="tab">
+                    Completed Classes
+                </button>
+            </li>
+        </ul>
+
+        <!-- Tab Content -->
+        <div class="tab-content" id="learningTabsContent">
+            <!-- Active Classes Tab -->
+            <div class="tab-pane fade show active" id="active" role="tabpanel">
+                {% if activeClasses is empty %}
+                    <div class="empty-state">
+                        <i class="fas fa-graduation-cap"></i>
+                        <h3>No Active Classes</h3>
+                        <p>You don't have any active classes at the moment.</p>
+                        <a href="{{ path('plans') }}" class="btn btn-primary">Browse Available Classes</a>
+                    </div>
+                {% else %}
+                    {% for class in activeClasses %}
+                        <div class="class-card">
+                            <div class="class-header">
+                                <div>
+                                    <h2 class="class-title">{{ class.title }}</h2>
+                                    <p class="text-muted">{{ class.description }}</p>
+                                </div>
+                                <div class="attendance-summary">
+                                    <div class="attendance-circle">{{ class.attendancePercentage }}%</div>
+                                    <div class="attendance-text">{{ class.sessionsAttended }}/{{ class.totalSessions }} session(s) attended</div>
+                                    <div class="attendance-rules">
+                                        <ul>
+                                            <li>Attend at least {{ class.minSessionsRequired }} session(s) of this class</li>
+                                            <li>Attend minimum 50% of a session to be marked as Present</li>
+                                            <li>If marked as Missed, watch 50% of recording to be marked as Present</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="class-details">
+                                <div class="class-detail-item">
+                                    <i class="fas fa-calendar"></i>
+                                    <span>Starts: {{ class.startDate|date('M d, Y') }}</span>
+                                </div>
+                                <div class="class-detail-item">
+                                    <i class="fas fa-calendar"></i>
+                                    <span>Ends: {{ class.endDate|date('M d, Y') }}</span>
+                                </div>
+                                <div class="class-detail-item">
+                                    <i class="fas fa-clock"></i>
+                                    <span>{{ class.totalSessions }} Sessions</span>
+                                </div>
+                                <div class="class-detail-item">
+                                    <i class="fas fa-clock"></i>
+                                    <span>Starts: {{ class.startTime }}</span>
+                                </div>
+                                <div class="class-detail-item">
+                                    <i class="fas fa-clock"></i>
+                                    <span>Ends: {{ class.endTime }}</span>
+                                </div>
+                                <div class="class-detail-item">
+                                    <i class="fas fa-clock"></i>
+                                    <span>{{ class.duration }}</span>
+                                </div>
+                            </div>
+
+                            <div class="sessions-section">
+                                <div class="sessions-header">
+                                    <h3 class="sessions-title">Sessions</h3>
+                                    <div class="sessions-nav">
+                                        <button type="button" class="sessions-prev">
+                                            <i class="fas fa-chevron-left"></i>
+                                        </button>
+                                        <button type="button" class="sessions-next">
+                                            <i class="fas fa-chevron-right"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="sessions-list">
+                                    {% for session in class.sessions %}
+                                        <div class="session-card">
+                                            <div class="session-date">{{ session.date|date('M d') }}</div>
+                                            <div class="session-status {{ session.status|lower }}">
+                                                {% if session.status == 'Present' %}
+                                                    <i class="fas fa-check-circle"></i>
+                                                    <span>Present</span>
+                                                {% elseif session.status == 'Missed' %}
+                                                    <i class="fas fa-times-circle"></i>
+                                                    <span>Missed</span>
+                                                {% else %}
+                                                    <i class="fas fa-clock"></i>
+                                                    <span>Upcoming</span>
+                                                {% endif %}
+                                            </div>
+                                            <div class="session-actions">
+                                                <button class="session-action" title="Join Class">
+                                                    <i class="fas fa-play-circle"></i>
+                                                </button>
+                                                {% if session.hasAttachments %}
+                                                    <button class="session-action has-attachments" title="Session Materials">
+                                                        <i class="fas fa-paperclip"></i>
+                                                    </button>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+
+            <!-- Completed Classes Tab -->
+            <div class="tab-pane fade" id="completed" role="tabpanel">
+                {% if completedClasses is empty %}
+                    <div class="empty-state">
+                        <i class="fas fa-trophy"></i>
+                        <h3>No Completed Classes</h3>
+                        <p>Complete your first class to see it here!</p>
+                    </div>
+                {% else %}
+                    {% for class in completedClasses %}
+                        <div class="class-card">
+                            <div class="class-header">
+                                <div>
+                                    <h2 class="class-title">{{ class.title }}</h2>
+                                    <p class="text-muted">{{ class.description }}</p>
+                                </div>
+                                <div class="attendance-summary">
+                                    <div class="attendance-circle">{{ class.attendancePercentage }}%</div>
+                                    <div class="attendance-text">{{ class.sessionsAttended }}/{{ class.totalSessions }} session(s) completed</div>
+                                </div>
+                            </div>
+
+                            <div class="class-details">
+                                <div class="class-detail-item">
+                                    <i class="fas fa-calendar"></i>
+                                    <span>Started: {{ class.startDate|date('M d, Y') }}</span>
+                                </div>
+                                <div class="class-detail-item">
+                                    <i class="fas fa-calendar"></i>
+                                    <span>Completed: {{ class.endDate|date('M d, Y') }}</span>
+                                </div>
+                                <div class="class-detail-item">
+                                    <i class="fas fa-trophy"></i>
+                                    <span>Grade: {{ class.grade }}</span>
+                                </div>
+                            </div>
+
+                            <div class="text-center">
+                                <a href="{{ path('user_session', {'classId': class.id}) }}" class="btn btn-primary">
+                                    <i class="fas fa-play me-2"></i>View Session Details
+                                </a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Tab functionality
+    const tabButtons = document.querySelectorAll('[data-bs-toggle="tab"]');
+    tabButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Remove active class from all tabs
+            tabButtons.forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-pane').forEach(pane => pane.classList.remove('show', 'active'));
+            
+            // Add active class to clicked tab
+            this.classList.add('active');
+            const target = document.querySelector(this.getAttribute('data-bs-target'));
+            target.classList.add('show', 'active');
+        });
+    });
+
+    // Session navigation
+    const sessionsLists = document.querySelectorAll('.sessions-list');
+    sessionsLists.forEach(list => {
+        const prevBtn = list.parentElement.querySelector('.sessions-prev');
+        const nextBtn = list.parentElement.querySelector('.sessions-next');
+        
+        if (prevBtn && nextBtn) {
+            prevBtn.addEventListener('click', () => {
+                list.scrollBy({ left: -200, behavior: 'smooth' });
+            });
+            
+            nextBtn.addEventListener('click', () => {
+                list.scrollBy({ left: 200, behavior: 'smooth' });
+            });
+        }
+    });
+});
+</script>
+{% endblock %}

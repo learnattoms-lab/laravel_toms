@@ -57,6 +57,15 @@ user_settings:
     path: /user/settings
     controller: App\Controller\UserProfileController::settings
 
+# Learning Routes
+user_learning:
+    path: /user/learning
+    controller: App\Controller\UserProfileController::learning
+
+user_session:
+    path: /user/session/{classId}
+    controller: App\Controller\UserProfileController::sessionDetail
+
 # OAuth Routes
 oauth_google:
     path: /auth/google

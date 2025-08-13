@@ -24,9 +24,6 @@ security:
             logout:
                 path: logout
                 target: app_home
-            # Custom authenticator for OAuth (temporarily disabled)
-            # custom_authenticators:
-            #     - App\Security\OAuthAuthenticator
 
     access_control:
         # Admin routes

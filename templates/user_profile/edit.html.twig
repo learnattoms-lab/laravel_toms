@@ -1,0 +1,265 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Profile - Toms Music School{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="mb-0"><i class="fas fa-user-edit me-2"></i>Edit Profile</h4>
+                </div>
+                <div class="card-body">
+                    <form method="post" action="{{ path('user_profile_edit') }}" enctype="multipart/form-data">
+                        <!-- Personal Information -->
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <h5 class="border-bottom pb-2 mb-3">
+                                    <i class="fas fa-user me-2"></i>Personal Information
+                                </h5>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="firstName" class="form-label">First Name *</label>
+                                <input type="text" class="form-control" id="firstName" name="firstName" 
+                                       value="{{ app.user.firstName|default('') }}" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="lastName" class="form-label">Last Name *</label>
+                                <input type="text" class="form-control" id="lastName" name="lastName" 
+                                       value="{{ app.user.lastName|default('') }}" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="phone" class="form-label">Phone Number</label>
+                                <input type="tel" class="form-control" id="phone" name="phone" 
+                                       value="{{ app.user.phone|default('') }}">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="dateOfBirth" class="form-label">Date of Birth</label>
+                                <input type="date" class="form-control" id="dateOfBirth" name="dateOfBirth" 
+                                       value="{{ app.user.dateOfBirth ? app.user.dateOfBirth|date('Y-m-d') : '' }}">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="gender" class="form-label">Gender</label>
+                                <select class="form-select" id="gender" name="gender">
+                                    <option value="">Select Gender</option>
+                                    <option value="male" {{ app.user.gender == 'male' ? 'selected' : '' }}>Male</option>
+                                    <option value="female" {{ app.user.gender == 'female' ? 'selected' : '' }}>Female</option>
+                                    <option value="other" {{ app.user.gender == 'other' ? 'selected' : '' }}>Other</option>
+                                    <option value="prefer-not-to-say" {{ app.user.gender == 'prefer-not-to-say' ? 'selected' : '' }}>Prefer not to say</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="address" class="form-label">Address</label>
+                                <textarea class="form-control" id="address" name="address" rows="2">{{ app.user.address|default('') }}</textarea>
+                            </div>
+                        </div>
+
+                        <!-- Music Profile -->
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <h5 class="border-bottom pb-2 mb-3">
+                                    <i class="fas fa-music me-2"></i>Music Profile
+                                </h5>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="primaryInstrument" class="form-label">Primary Instrument</label>
+                                <select class="form-select" id="primaryInstrument" name="primaryInstrument">
+                                    <option value="">Select Instrument</option>
+                                    <option value="piano" {{ app.user.primaryInstrument == 'piano' ? 'selected' : '' }}>Piano</option>
+                                    <option value="guitar" {{ app.user.primaryInstrument == 'guitar' ? 'selected' : '' }}>Guitar</option>
+                                    <option value="violin" {{ app.user.primaryInstrument == 'violin' ? 'selected' : '' }}>Violin</option>
+                                    <option value="drums" {{ app.user.primaryInstrument == 'drums' ? 'selected' : '' }}>Drums</option>
+                                    <option value="voice" {{ app.user.primaryInstrument == 'voice' ? 'selected' : '' }}>Voice</option>
+                                    <option value="flute" {{ app.user.primaryInstrument == 'flute' ? 'selected' : '' }}>Flute</option>
+                                    <option value="saxophone" {{ app.user.primaryInstrument == 'saxophone' ? 'selected' : '' }}>Saxophone</option>
+                                    <option value="other" {{ app.user.primaryInstrument == 'other' ? 'selected' : '' }}>Other</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="experienceLevel" class="form-label">Experience Level</label>
+                                <select class="form-select" id="experienceLevel" name="experienceLevel">
+                                    <option value="">Select Level</option>
+                                    <option value="beginner" {{ app.user.experienceLevel == 'beginner' ? 'selected' : '' }}>Beginner</option>
+                                    <option value="intermediate" {{ app.user.experienceLevel == 'intermediate' ? 'selected' : '' }}>Intermediate</option>
+                                    <option value="advanced" {{ app.user.experienceLevel == 'advanced' ? 'selected' : '' }}>Advanced</option>
+                                    <option value="expert" {{ app.user.experienceLevel == 'expert' ? 'selected' : '' }}>Expert</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="practiceHoursPerWeek" class="form-label">Practice Hours per Week</label>
+                                <select class="form-select" id="practiceHoursPerWeek" name="practiceHoursPerWeek">
+                                    <option value="">Select Hours</option>
+                                    <option value="0-2" {{ app.user.practiceHoursPerWeek == '0-2' ? 'selected' : '' }}>0-2 hours</option>
+                                    <option value="3-5" {{ app.user.practiceHoursPerWeek == '3-5' ? 'selected' : '' }}>3-5 hours</option>
+                                    <option value="6-10" {{ app.user.practiceHoursPerWeek == '6-10' ? 'selected' : '' }}>6-10 hours</option>
+                                    <option value="10+" {{ app.user.practiceHoursPerWeek == '10+' ? 'selected' : '' }}>10+ hours</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="musicalGoals" class="form-label">Musical Goals</label>
+                                <textarea class="form-control" id="musicalGoals" name="musicalGoals" rows="2" 
+                                          placeholder="e.g., Learn to play jazz, Prepare for audition, etc.">{{ app.user.musicalGoals|default('') }}</textarea>
+                            </div>
+                        </div>
+
+                        <!-- Academic Information -->
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <h5 class="border-bottom pb-2 mb-3">
+                                    <i class="fas fa-graduation-cap me-2"></i>Academic Information
+                                </h5>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="currentGrade" class="form-label">Current Grade/Level</label>
+                                <select class="form-select" id="currentGrade" name="currentGrade">
+                                    <option value="">Select Grade</option>
+                                    <option value="kindergarten" {{ app.user.currentGrade == 'kindergarten' ? 'selected' : '' }}>Kindergarten</option>
+                                    <option value="1st" {{ app.user.currentGrade == '1st' ? 'selected' : '' }}>1st Grade</option>
+                                    <option value="2nd" {{ app.user.currentGrade == '2nd' ? 'selected' : '' }}>2nd Grade</option>
+                                    <option value="3rd" {{ app.user.currentGrade == '3rd' ? 'selected' : '' }}>3rd Grade</option>
+                                    <option value="4th" {{ app.user.currentGrade == '4th' ? 'selected' : '' }}>4th Grade</option>
+                                    <option value="5th" {{ app.user.currentGrade == '5th' ? 'selected' : '' }}>5th Grade</option>
+                                    <option value="6th" {{ app.user.currentGrade == '6th' ? 'selected' : '' }}>6th Grade</option>
+                                    <option value="7th" {{ app.user.currentGrade == '7th' ? 'selected' : '' }}>7th Grade</option>
+                                    <option value="8th" {{ app.user.currentGrade == '8th' ? 'selected' : '' }}>8th Grade</option>
+                                    <option value="9th" {{ app.user.currentGrade == '9th' ? 'selected' : '' }}>9th Grade</option>
+                                    <option value="10th" {{ app.user.currentGrade == '10th' ? 'selected' : '' }}>10th Grade</option>
+                                    <option value="11th" {{ app.user.currentGrade == '11th' ? 'selected' : '' }}>11th Grade</option>
+                                    <option value="12th" {{ app.user.currentGrade == '12th' ? 'selected' : '' }}>12th Grade</option>
+                                    <option value="college" {{ app.user.currentGrade == 'college' ? 'selected' : '' }}>College</option>
+                                    <option value="adult" {{ app.user.currentGrade == 'adult' ? 'selected' : '' }}>Adult</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="schoolName" class="form-label">School Name</label>
+                                <input type="text" class="form-control" id="schoolName" name="schoolName" 
+                                       value="{{ app.user.schoolName|default('') }}">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="previousMusicExperience" class="form-label">Previous Music Experience</label>
+                                <textarea class="form-control" id="previousMusicExperience" name="previousMusicExperience" rows="2" 
+                                          placeholder="Describe any previous music lessons, classes, or experience">{{ app.user.previousMusicExperience|default('') }}</textarea>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="musicTheoryKnowledge" class="form-label">Music Theory Knowledge</label>
+                                <select class="form-select" id="musicTheoryKnowledge" name="musicTheoryKnowledge">
+                                    <option value="">Select Level</option>
+                                    <option value="none" {{ app.user.musicTheoryKnowledge == 'none' ? 'selected' : '' }}>None</option>
+                                    <option value="basic" {{ app.user.musicTheoryKnowledge == 'basic' ? 'selected' : '' }}>Basic</option>
+                                    <option value="intermediate" {{ app.user.musicTheoryKnowledge == 'intermediate' ? 'selected' : '' }}>Intermediate</option>
+                                    <option value="advanced" {{ app.user.musicTheoryKnowledge == 'advanced' ? 'selected' : '' }}>Advanced</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Emergency Contact -->
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <h5 class="border-bottom pb-2 mb-3">
+                                    <i class="fas fa-address-book me-2"></i>Emergency Contact
+                                </h5>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="emergencyContactName" class="form-label">Emergency Contact Name</label>
+                                <input type="text" class="form-control" id="emergencyContactName" name="emergencyContactName" 
+                                       value="{{ app.user.emergencyContactName|default('') }}">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="emergencyContactPhone" class="form-label">Emergency Contact Phone</label>
+                                <input type="tel" class="form-control" id="emergencyContactPhone" name="emergencyContactPhone" 
+                                       value="{{ app.user.emergencyContactPhone|default('') }}">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="emergencyContactRelationship" class="form-label">Relationship to Student</label>
+                                <select class="form-select" id="emergencyContactRelationship" name="emergencyContactRelationship">
+                                    <option value="">Select Relationship</option>
+                                    <option value="parent" {{ app.user.emergencyContactRelationship == 'parent' ? 'selected' : '' }}>Parent</option>
+                                    <option value="guardian" {{ app.user.emergencyContactRelationship == 'guardian' ? 'selected' : '' }}>Guardian</option>
+                                    <option value="spouse" {{ app.user.emergencyContactRelationship == 'spouse' ? 'selected' : '' }}>Spouse</option>
+                                    <option value="sibling" {{ app.user.emergencyContactRelationship == 'sibling' ? 'selected' : '' }}>Sibling</option>
+                                    <option value="other" {{ app.user.emergencyContactRelationship == 'other' ? 'selected' : '' }}>Other</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Profile Picture -->
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <h5 class="border-bottom pb-2 mb-3">
+                                    <i class="fas fa-camera me-2"></i>Profile Picture
+                                </h5>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="profilePicture" class="form-label">Upload New Picture</label>
+                                <input type="file" class="form-control" id="profilePicture" name="profilePicture" 
+                                       accept="image/*">
+                                <small class="form-text text-muted">Recommended size: 300x300 pixels, Max: 2MB</small>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Current Picture</label>
+                                <div class="text-center">
+                                    <img src="{{ app.user.profilePicture|default('/images/default-avatar.png') }}" 
+                                         alt="Current Profile Picture" 
+                                         class="img-thumbnail"
+                                         style="width: 100px; height: 100px; object-fit: cover;">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Form Actions -->
+                        <div class="row">
+                            <div class="col-12 text-center">
+                                <button type="submit" class="btn btn-primary btn-lg me-3">
+                                    <i class="fas fa-save me-2"></i>Save Changes
+                                </button>
+                                <a href="{{ path('user_profile') }}" class="btn btn-outline-secondary btn-lg">
+                                    <i class="fas fa-times me-2"></i>Cancel
+                                </a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.card {
+    border: none;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    border-radius: 0.75rem;
+}
+
+.card-header {
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #e9ecef;
+    border-radius: 0.75rem 0.75rem 0 0 !important;
+}
+
+.form-label {
+    font-weight: 500;
+    color: #495057;
+}
+
+.form-control, .form-select {
+    border-radius: 0.5rem;
+    border: 1px solid #ced4da;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: #86b7fe;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+.btn {
+    border-radius: 0.5rem;
+    padding: 0.75rem 1.5rem;
+}
+
+.border-bottom {
+    border-color: #e9ecef !important;
+}
+</style>
+{% endblock %}

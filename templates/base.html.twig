@@ -473,6 +473,205 @@
                 padding: 60px 0;
             }
         }
+        
+        /* Custom Animated Icons */
+        .custom-icon {
+            position: relative;
+            display: inline-block;
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+        
+        .custom-icon::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            font-size: 2rem;
+            color: white;
+            z-index: 2;
+        }
+        
+        .custom-icon::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s ease;
+        }
+        
+        .custom-icon:hover::after {
+            left: 100%;
+        }
+        
+        .custom-icon:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);
+        }
+        
+        /* Specific icon styles */
+        .icon-graduate::before {
+            content: '\f51a'; /* fa-user-graduate */
+        }
+        
+        .icon-clock::before {
+            content: '\f017'; /* fa-clock */
+        }
+        
+        .icon-chart::before {
+            content: '\f201'; /* fa-chart-line */
+        }
+        
+        .icon-music::before {
+            content: '\f001'; /* fa-music */
+        }
+        
+        .icon-heart::before {
+            content: '\f004'; /* fa-heart */
+        }
+        
+        .icon-star::before {
+            content: '\f005'; /* fa-star */
+        }
+        
+        /* Icon animations */
+        .custom-icon.animate-pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        .custom-icon.animate-bounce {
+            animation: bounce 2s infinite;
+        }
+        
+        .custom-icon.animate-rotate {
+            animation: rotate 3s linear infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+        
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Carousel Styles */
+        .carousel-section {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%) !important;
+            padding: 4rem 0;
+        }
+        
+        .carousel-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: white;
+        }
+        
+        .carousel-text {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.6;
+        }
+        
+        .carousel-item {
+            padding: 2rem 0;
+        }
+        
+        .carousel-item img {
+            border-radius: 1rem;
+            box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+        
+        .carousel-item img:hover {
+            transform: scale(1.02);
+        }
+        
+        .carousel-indicators {
+            bottom: -3rem;
+        }
+        
+        .carousel-indicators button {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.5);
+            border: none;
+            margin: 0 5px;
+        }
+        
+        .carousel-indicators button.active {
+            background-color: white;
+        }
+        
+        .carousel-control-prev,
+        .carousel-control-next {
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            border: none;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+        .carousel-control-prev {
+            left: 2rem;
+        }
+        
+        .carousel-control-next {
+            right: 2rem;
+        }
+        
+        .carousel-control-prev:hover,
+        .carousel-control-next:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        @media (max-width: 768px) {
+            .carousel-title {
+                font-size: 2rem;
+            }
+            
+            .carousel-text {
+                font-size: 1rem;
+            }
+            
+            .carousel-control-prev,
+            .carousel-control-next {
+                width: 40px;
+                height: 40px;
+            }
+            
+            .carousel-control-prev {
+                left: 1rem;
+            }
+            
+            .carousel-control-next {
+                right: 1rem;
+            }
+        }
     </style>
     
     {% block stylesheets %}{% endblock %}
@@ -490,7 +689,7 @@
             </button>
             
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
+                <ul class="navbar-nav me-auto">
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('app_home') }}">Home</a>
                     </li>
@@ -506,12 +705,49 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('app_contact') }}">Contact</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('login') }}">Login</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('register') }}">Register</a>
-                    </li>
+                </ul>
+                
+                <ul class="navbar-nav">
+                    {% if app.user %}
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-user me-2"></i>{{ app.user.firstName|default(app.user.email) }}
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                {% if 'ROLE_ADMIN' in app.user.roles %}
+                                    <li><a class="dropdown-item" href="{{ path('admin_dashboard') }}"><i class="fas fa-shield-alt me-2"></i>Admin Dashboard</a></li>
+                                    <li><a class="dropdown-item" href="{{ path('admin_teachers') }}"><i class="fas fa-chalkboard-teacher me-2"></i>Manage Teachers</a></li>
+                                    <li><a class="dropdown-item" href="{{ path('admin_students') }}"><i class="fas fa-users me-2"></i>Manage Students</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                {% elseif 'ROLE_TEACHER' in app.user.roles %}
+                                    <li><a class="dropdown-item" href="{{ path('user_dashboard') }}"><i class="fas fa-tachometer-alt me-2"></i>Teacher Dashboard</a></li>
+                                    <li><a class="dropdown-item" href="{{ path('user_profile') }}"><i class="fas fa-user-edit me-2"></i>My Profile</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                {% else %}
+                                    <li><a class="dropdown-item" href="{{ path('user_dashboard') }}"><i class="fas fa-tachometer-alt me-2"></i>Dashboard</a></li>
+                                    <li><a class="dropdown-item" href="{{ path('user_profile') }}"><i class="fas fa-user-edit me-2"></i>Profile</a></li>
+                                    <li><a class="dropdown-item" href="{{ path('user_progress') }}"><i class="fas fa-chart-line me-2"></i>Progress</a></li>
+                                    <li><a class="dropdown-item" href="{{ path('user_achievements') }}"><i class="fas fa-trophy me-2"></i>Achievements</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                {% endif %}
+                                <li><a class="dropdown-item" href="{{ path('user_settings') }}"><i class="fas fa-cog me-2"></i>Settings</a></li>
+                                <li><a class="dropdown-item" href="{{ path('logout') }}"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+                            </ul>
+                        </li>
+                    {% else %}
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="loginDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-sign-in-alt me-2"></i>Login
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="loginDropdown">
+                                <li><a class="dropdown-item" href="{{ path('login') }}"><i class="fas fa-user-graduate me-2"></i>Student Login</a></li>
+                                <li><a class="dropdown-item" href="{{ path('teacher_login') }}"><i class="fas fa-chalkboard-teacher me-2"></i>Teacher Login</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('register') }}">Register</a>
+                        </li>
+                    {% endif %}
                 </ul>
             </div>
         </div>

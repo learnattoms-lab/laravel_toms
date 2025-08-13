@@ -1,0 +1,582 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Session Details - Toms Music School{% endblock %}
+
+{% block body %}
+<div class="session-page">
+    <div class="container mt-4">
+        <!-- Session Header -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="session-header">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h1 class="mb-2">
+                                <i class="fas fa-music me-3"></i>
+                                Piano Lesson - Session #12
+                            </h1>
+                            <p class="text-muted mb-0">
+                                <i class="fas fa-calendar me-2"></i>
+                                Today, December 15, 2024 • 10:00 AM - 10:45 AM
+                            </p>
+                        </div>
+                        <div class="session-status">
+                            <span class="badge bg-success fs-6">Active Session</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Main Session Content -->
+            <div class="col-lg-8">
+                <!-- GTalk/Google Meet Link -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5 class="mb-0">
+                            <i class="fas fa-video me-2 text-primary"></i>
+                            Join Session
+                        </h5>
+                    </div>
+                    <div class="card-body text-center">
+                        <div class="meet-link-container">
+                            <div class="meet-icon mb-3">
+                                <i class="fas fa-video fa-3x text-primary"></i>
+                            </div>
+                            <h5 class="mb-3">Join Your Music Lesson</h5>
+                            <p class="text-muted mb-4">
+                                Click the button below to join your live music lesson session
+                            </p>
+                            <a href="https://meet.google.com/abc-defg-hij" 
+                               target="_blank" 
+                               class="btn btn-primary btn-lg">
+                                <i class="fas fa-external-link-alt me-2"></i>
+                                Join Google Meet
+                            </a>
+                            <div class="mt-3">
+                                <small class="text-muted">
+                                    Meeting ID: abc-defg-hij | Password: 123456
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Session Materials -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5 class="mb-0">
+                            <i class="fas fa-book me-2 text-primary"></i>
+                            Session Materials
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="materials-grid">
+                            <div class="material-item">
+                                <div class="material-icon">
+                                    <i class="fas fa-file-pdf text-danger"></i>
+                                </div>
+                                <div class="material-info">
+                                    <h6 class="mb-1">Piano Basics - Lesson 12</h6>
+                                    <p class="text-muted mb-1">PDF • 2.3 MB</p>
+                                    <small class="text-muted">Sheet music and exercises</small>
+                                </div>
+                                <div class="material-actions">
+                                    <a href="#" class="btn btn-sm btn-outline-primary">Download</a>
+                                </div>
+                            </div>
+                            <div class="material-item">
+                                <div class="material-icon">
+                                    <i class="fas fa-music text-success"></i>
+                                </div>
+                                <div class="material-info">
+                                    <h6 class="mb-1">Practice Exercises</h6>
+                                    <p class="text-muted mb-1">MP3 • 1.8 MB</p>
+                                    <small class="text-muted">Audio examples and backing tracks</small>
+                                </div>
+                                <div class="material-actions">
+                                    <a href="#" class="btn btn-sm btn-outline-primary">Download</a>
+                                </div>
+                            </div>
+                            <div class="material-item">
+                                <div class="material-icon">
+                                    <i class="fas fa-play-circle text-info"></i>
+                                </div>
+                                <div class="material-info">
+                                    <h6 class="mb-1">Video Tutorial</h6>
+                                    <p class="text-muted mb-1">MP4 • 15.2 MB</p>
+                                    <small class="text-muted">Step-by-step instruction video</small>
+                                </div>
+                                <div class="material-actions">
+                                    <a href="#" class="btn btn-sm btn-outline-primary">Watch</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Assignment -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5 class="mb-0">
+                            <i class="fas fa-tasks me-2 text-primary"></i>
+                            Assignment
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="assignment-details">
+                            <h6 class="mb-3">Practice "Twinkle Twinkle Little Star"</h6>
+                            <div class="assignment-requirements mb-3">
+                                <h6 class="text-muted mb-2">Requirements:</h6>
+                                <ul class="list-unstyled">
+                                    <li><i class="fas fa-check text-success me-2"></i>Practice both hands separately</li>
+                                    <li><i class="fas fa-check text-success me-2"></i>Focus on proper finger positioning</li>
+                                    <li><i class="fas fa-check text-success me-2"></i>Maintain steady tempo</li>
+                                    <li><i class="fas fa-check text-success me-2"></i>Record your practice session</li>
+                                </ul>
+                            </div>
+                            <div class="assignment-due">
+                                <strong>Due Date:</strong> 
+                                <span class="text-danger">December 22, 2024</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Assignment Submission -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5 class="mb-0">
+                            <i class="fas fa-upload me-2 text-primary"></i>
+                            Submit Assignment
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <form>
+                            <div class="mb-3">
+                                <label for="assignmentFile" class="form-label">Upload Practice Recording</label>
+                                <input type="file" class="form-control" id="assignmentFile" 
+                                       accept="audio/*,video/*" required>
+                                <div class="form-text">
+                                    Upload your practice session recording (audio or video format)
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="assignmentNotes" class="form-label">Notes/Comments</label>
+                                <textarea class="form-control" id="assignmentNotes" rows="3" 
+                                          placeholder="Share any challenges, questions, or progress notes..."></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-paper-plane me-2"></i>
+                                Submit Assignment
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Session Sidebar -->
+            <div class="col-lg-4">
+                <!-- Session Info -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h6 class="mb-0">
+                            <i class="fas fa-info-circle me-2"></i>
+                            Session Info
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="info-item">
+                            <span class="info-label">Teacher:</span>
+                            <span class="info-value">Ms. Sarah Wilson</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Duration:</span>
+                            <span class="info-value">45 minutes</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Level:</span>
+                            <span class="info-value">Beginner</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Instrument:</span>
+                            <span class="info-value">Piano</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Focus Area:</span>
+                            <span class="info-value">Basic Melodies</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Session Progress -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h6 class="mb-0">
+                            <i class="fas fa-chart-line me-2"></i>
+                            Session Progress
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="progress-item mb-3">
+                            <div class="d-flex justify-content-between mb-1">
+                                <span>Warm-up Exercises</span>
+                                <span>100%</span>
+                            </div>
+                            <div class="progress" style="height: 8px;">
+                                <div class="progress-bar bg-success" style="width: 100%"></div>
+                            </div>
+                        </div>
+                        <div class="progress-item mb-3">
+                            <div class="d-flex justify-content-between mb-1">
+                                <span>New Material</span>
+                                <span>75%</span>
+                            </div>
+                            <div class="progress" style="height: 8px;">
+                                <div class="progress-bar bg-primary" style="width: 75%"></div>
+                            </div>
+                        </div>
+                        <div class="progress-item mb-3">
+                            <div class="d-flex justify-content-between mb-1">
+                                <span>Practice Time</span>
+                                <span>60%</span>
+                            </div>
+                            <div class="progress" style="height: 8px;">
+                                <div class="progress-bar bg-warning" style="width: 60%"></div>
+                            </div>
+                        </div>
+                        <div class="progress-item">
+                            <div class="d-flex justify-content-between mb-1">
+                                <span>Review & Q&A</span>
+                                <span>0%</span>
+                            </div>
+                            <div class="progress" style="height: 8px;">
+                                <div class="progress-bar bg-secondary" style="width: 0%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h6 class="mb-0">
+                            <i class="fas fa-bolt me-2"></i>
+                            Quick Actions
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-grid gap-2">
+                            <a href="#" class="btn btn-outline-primary btn-sm">
+                                <i class="fas fa-calendar-plus me-2"></i>
+                                Schedule Next Session
+                            </a>
+                            <a href="#" class="btn btn-outline-success btn-sm">
+                                <i class="fas fa-download me-2"></i>
+                                Download All Materials
+                            </a>
+                            <a href="#" class="btn btn-outline-info btn-sm">
+                                <i class="fas fa-question-circle me-2"></i>
+                                Ask Question
+                            </a>
+                            <a href="#" class="btn btn-outline-secondary btn-sm">
+                                <i class="fas fa-print me-2"></i>
+                                Print Materials
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Comments & Feedback -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0">
+                            <i class="fas fa-comments me-2 text-primary"></i>
+                            Comments & Feedback
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="comments-section">
+                            <!-- Teacher Comment -->
+                            <div class="comment-item teacher-comment">
+                                <div class="comment-avatar">
+                                    <img src="/images/default-avatar.png" alt="Teacher" class="rounded-circle">
+                                </div>
+                                <div class="comment-content">
+                                    <div class="comment-header">
+                                        <strong>Ms. Sarah Wilson</strong>
+                                        <span class="badge bg-primary ms-2">Teacher</span>
+                                        <small class="text-muted ms-2">2 hours ago</small>
+                                    </div>
+                                    <div class="comment-text">
+                                        <p class="mb-2">Great progress today! Your finger positioning is much better. 
+                                        Remember to practice the new melody slowly at first, then gradually increase speed.</p>
+                                        <div class="comment-attachments">
+                                            <a href="#" class="btn btn-sm btn-outline-secondary">
+                                                <i class="fas fa-file-audio me-1"></i>
+                                                Audio Feedback
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Student Comment -->
+                            <div class="comment-item student-comment">
+                                <div class="comment-avatar">
+                                    <img src="/images/default-avatar.png" alt="Student" class="rounded-circle">
+                                </div>
+                                <div class="comment-content">
+                                    <div class="comment-header">
+                                        <strong>You</strong>
+                                        <small class="text-muted ms-2">1 hour ago</small>
+                                    </div>
+                                    <div class="comment-text">
+                                        <p class="mb-0">Thank you! I'll practice the new melody as suggested. 
+                                        The audio examples really help with understanding the rhythm.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Add New Comment -->
+                            <div class="add-comment">
+                                <form>
+                                    <div class="mb-3">
+                                        <textarea class="form-control" rows="3" 
+                                                  placeholder="Add a comment or question..."></textarea>
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="privateComment">
+                                            <label class="form-check-label" for="privateComment">
+                                                Private comment (only visible to teacher)
+                                            </label>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">
+                                            <i class="fas fa-paper-plane me-2"></i>
+                                            Post Comment
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.session-page {
+    background-color: #f8f9fa;
+    min-height: 100vh;
+    padding-bottom: 2rem;
+}
+
+.session-header {
+    background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+    color: white;
+    padding: 2rem;
+    border-radius: 0.75rem;
+    margin-bottom: 2rem;
+}
+
+.session-status .badge {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+}
+
+.meet-link-container {
+    padding: 2rem;
+}
+
+.meet-icon {
+    width: 80px;
+    height: 80px;
+    background-color: #f8f9fa;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+.materials-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.material-item {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    border: 1px solid #e9ecef;
+    border-radius: 0.5rem;
+    background-color: #f8f9fa;
+    transition: all 0.3s ease;
+}
+
+.material-item:hover {
+    background-color: white;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+}
+
+.material-icon {
+    width: 48px;
+    height: 48px;
+    background-color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 1rem;
+    font-size: 1.5rem;
+}
+
+.material-info {
+    flex: 1;
+}
+
+.material-actions {
+    margin-left: auto;
+}
+
+.assignment-requirements ul li {
+    margin-bottom: 0.5rem;
+}
+
+.info-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.info-item:last-child {
+    border-bottom: none;
+}
+
+.info-label {
+    font-weight: 500;
+    color: #6c757d;
+}
+
+.info-value {
+    font-weight: 600;
+    color: #495057;
+}
+
+.progress-item .progress {
+    border-radius: 1rem;
+}
+
+.comments-section {
+    max-width: 100%;
+}
+
+.comment-item {
+    display: flex;
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    border: 1px solid #e9ecef;
+    border-radius: 0.5rem;
+    background-color: #f8f9fa;
+}
+
+.teacher-comment {
+    background-color: #e3f2fd;
+    border-color: #2196f3;
+}
+
+.student-comment {
+    background-color: #f3e5f5;
+    border-color: #9c27b0;
+}
+
+.comment-avatar img {
+    width: 48px;
+    height: 48px;
+    object-fit: cover;
+    margin-right: 1rem;
+}
+
+.comment-content {
+    flex: 1;
+}
+
+.comment-header {
+    margin-bottom: 0.5rem;
+}
+
+.comment-text p {
+    margin-bottom: 0.5rem;
+}
+
+.comment-attachments {
+    margin-top: 0.5rem;
+}
+
+.add-comment {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #e9ecef;
+}
+
+.card {
+    border: none;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    border-radius: 0.75rem;
+}
+
+.card-header {
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #e9ecef;
+    border-radius: 0.75rem 0.75rem 0 0 !important;
+}
+
+@media (max-width: 768px) {
+    .session-header {
+        text-align: center;
+    }
+    
+    .session-status {
+        margin-top: 1rem;
+    }
+    
+    .material-item {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .material-icon {
+        margin-right: 0;
+        margin-bottom: 1rem;
+    }
+    
+    .material-actions {
+        margin-left: 0;
+        margin-top: 1rem;
+    }
+    
+    .comment-item {
+        flex-direction: column;
+    }
+    
+    .comment-avatar {
+        margin-bottom: 1rem;
+        text-align: center;
+    }
+    
+    .comment-avatar img {
+        margin-right: 0;
+    }
+}
+</style>
+{% endblock %}

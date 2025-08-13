@@ -3,6 +3,73 @@
 {% block title %}{{ page_title }}{% endblock %}
 
 {% block body %}
+<!-- Learn Music Carousel Section -->
+<section class="carousel-section py-5 bg-primary text-white">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-4 fw-bold">Learn Music with Expert Teachers</h2>
+            <p class="lead">Discover your musical potential with personalized online lessons</p>
+        </div>
+        
+        <div id="musicCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#musicCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#musicCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#musicCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            </div>
+            
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="row align-items-center">
+                        <div class="col-lg-6">
+                            <h3 class="carousel-title">Master the Piano</h3>
+                            <p class="carousel-text">Learn classical, jazz, and contemporary piano techniques from world-class instructors. Perfect for beginners and advanced players alike.</p>
+                            <a href="{{ path('register') }}" class="btn btn-light btn-lg">Start Learning Piano</a>
+                        </div>
+                        <div class="col-lg-6">
+                            <img src="https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Piano Learning" class="img-fluid rounded-3 shadow-lg">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="carousel-item">
+                    <div class="row align-items-center">
+                        <div class="col-lg-6">
+                            <h3 class="carousel-title">Rock the Guitar</h3>
+                            <p class="carousel-text">From acoustic to electric, learn strumming, fingerpicking, and advanced techniques. Join the ranks of guitar legends!</p>
+                            <a href="{{ path('register') }}" class="btn btn-light btn-lg">Start Learning Guitar</a>
+                        </div>
+                        <div class="col-lg-6">
+                            <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Guitar Learning" class="img-fluid rounded-3 shadow-lg">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="carousel-item">
+                    <div class="row align-items-center">
+                        <div class="col-lg-6">
+                            <h3 class="carousel-title">Find Your Voice</h3>
+                            <p class="carousel-text">Develop your singing voice with professional vocal training. Learn breathing techniques, pitch control, and performance skills.</p>
+                            <a href="{{ path('register') }}" class="btn btn-light btn-lg">Start Learning Vocals</a>
+                        </div>
+                        <div class="col-lg-6">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Vocal Training" class="img-fluid rounded-3 shadow-lg">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="carousel-control-prev" type="button" data-bs-target="#musicCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#musicCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
+</section>
 <!-- Hero Section -->
 <section class="hero-section text-white text-center py-5">
     <div class="container">
@@ -16,7 +83,7 @@
                 </div>
             </div>
             <div class="col-lg-6">
-                <img src="{{ asset('images/DSC08629.JPG') }}" alt="Music Performance" class="img-fluid rounded-3 shadow-lg">
+                <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Music Performance - Piano Keys" class="img-fluid rounded-3 shadow-lg">
             </div>
         </div>
     </div>
@@ -32,27 +99,21 @@
         <div class="row g-4">
             <div class="col-md-4">
                 <div class="text-center">
-                    <div class="feature-icon mb-3">
-                        <i class="fas fa-user-graduate fa-3x text-primary"></i>
-                    </div>
+                    <div class="custom-icon icon-graduate animate-pulse"></div>
                     <h4>Expert Teachers</h4>
                     <p class="text-muted">Learn from professional musicians with years of teaching experience</p>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="text-center">
-                    <div class="feature-icon mb-3">
-                        <i class="fas fa-clock fa-3x text-primary"></i>
-                    </div>
+                    <div class="custom-icon icon-clock animate-bounce"></div>
                     <h4>Flexible Scheduling</h4>
                     <p class="text-muted">Book lessons at times that work for you, with easy rescheduling options</p>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="text-center">
-                    <div class="feature-icon mb-3">
-                        <i class="fas fa-chart-line fa-3x text-primary"></i>
-                    </div>
+                    <div class="custom-icon icon-chart animate-pulse"></div>
                     <h4>Track Progress</h4>
                     <p class="text-muted">Monitor your improvement with detailed progress tracking and feedback</p>
                 </div>
@@ -71,7 +132,7 @@
         <div class="row g-4">
             <div class="col-md-6 col-lg-3">
                 <div class="card h-100 border-0 shadow-sm">
-                    <img src="{{ asset('images/WhatsApp Image 2025-08-10 at 20.46.02.jpeg') }}" class="card-img-top instrument-image" alt="Guitar player">
+                    <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" class="card-img-top instrument-image" alt="Guitar player">
                     <div class="card-body text-center">
                         <h5 class="card-title">Guitar</h5>
                         <p class="card-text text-muted">Acoustic, electric, or bass - master the strings</p>
@@ -80,7 +141,7 @@
             </div>
             <div class="col-md-6 col-lg-3">
                 <div class="card h-100 border-0 shadow-sm">
-                    <img src="{{ asset('images/IMG_5860.JPEG') }}" class="card-img-top instrument-image" alt="Drummer">
+                    <img src="https://images.unsplash.com/photo-1519892300165-cb5542fb47c7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" class="card-img-top instrument-image" alt="Drummer">
                     <div class="card-body text-center">
                         <h5 class="card-title">Drums</h5>
                         <p class="card-text text-muted">Build rhythm and coordination with expert guidance</p>
@@ -89,7 +150,7 @@
             </div>
             <div class="col-md-6 col-lg-3">
                 <div class="card h-100 border-0 shadow-sm">
-                    <img src="{{ asset('images/WhatsApp Image 2025-08-10 at 20.46.11.jpeg') }}" class="card-img-top instrument-image" alt="Piano player">
+                    <img src="https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" class="card-img-top instrument-image" alt="Piano player">
                     <div class="card-body text-center">
                         <h5 class="card-title">Piano</h5>
                         <p class="card-text text-muted">Classical, jazz, or contemporary piano techniques</p>
@@ -98,7 +159,7 @@
             </div>
             <div class="col-md-6 col-lg-3">
                 <div class="card h-100 border-0 shadow-sm">
-                    <img src="{{ asset('images/WhatsApp Image 2025-08-10 at 20.46.20.jpeg') }}" class="card-img-top instrument-image" alt="Vocalist">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" class="card-img-top instrument-image" alt="Vocalist">
                     <div class="card-body text-center">
                         <h5 class="card-title">Vocals</h5>
                         <p class="card-text text-muted">Develop your voice and singing technique</p>
@@ -119,21 +180,21 @@
         <div class="row g-4">
             <div class="col-md-4">
                 <div class="text-center">
-                    <div class="step-number mb-3">1</div>
+                    <div class="custom-icon icon-music animate-pulse">1</div>
                     <h4>Book Your Lesson</h4>
                     <p class="text-muted">Choose your instrument, teacher, and preferred time slot</p>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="text-center">
-                    <div class="step-number mb-3">2</div>
+                    <div class="custom-icon icon-star animate-bounce">2</div>
                     <h4>Connect Online</h4>
                     <p class="text-muted">Join your lesson via Google Meet with your teacher</p>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="text-center">
-                    <div class="step-number mb-3">3</div>
+                    <div class="custom-icon icon-chart animate-pulse">3</div>
                     <h4>Practice & Improve</h4>
                     <p class="text-muted">Get assignments, track progress, and watch yourself grow</p>
                 </div>
@@ -152,7 +213,7 @@
         <div class="row g-4 justify-content-center">
             <div class="col-lg-5 col-md-6">
                 <div class="performance-card">
-                    <img src="{{ asset('images/WhatsApp Image 2025-08-10 at 20.46.27.jpeg') }}" alt="Live performance" class="img-fluid rounded-3 shadow-lg performance-gallery">
+                    <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Live performance" class="img-fluid rounded-3 shadow-lg performance-gallery">
                     <div class="performance-overlay">
                         <h5 class="text-white fw-bold">Live Performance</h5>
                         <p class="text-white-50">Capturing the energy on stage</p>
@@ -161,7 +222,7 @@
             </div>
             <div class="col-lg-5 col-md-6">
                 <div class="performance-card">
-                    <img src="{{ asset('images/IMG_5860.JPEG') }}" alt="Studio session" class="img-fluid rounded-3 shadow-lg performance-gallery">
+                    <img src="https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Studio session" class="img-fluid rounded-3 shadow-lg performance-gallery">
                     <div class="performance-overlay">
                         <h5 class="text-white fw-bold">Studio Session</h5>
                         <p class="text-white-50">Professional recording environment</p>

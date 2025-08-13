@@ -14,6 +14,7 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 use Symfony\Component\Security\Http\SecurityEvents;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
 class OAuthController extends AbstractController
 {
@@ -72,6 +73,8 @@ class OAuthController extends AbstractController
             // Authenticate user
             $this->authenticateUser($user);
             
+            // For now, just redirect to dashboard and let the user access it
+            // The session data will be used to identify the user
             $this->addFlash('success', 'Successfully logged in with Google!');
             return $this->redirectToRoute('user_dashboard');
             
@@ -222,16 +225,33 @@ class OAuthController extends AbstractController
 
     private function authenticateUser(User $user): void
     {
-        // Create a simple authentication token
-        // In a real application, you'd use Symfony's security system properly
-        
-        // For now, we'll store the user ID in the session
-        $this->requestStack->getSession()->set('user_id', $user->getId());
-        $this->requestStack->getSession()->set('user_email', $user->getEmail());
-        $this->requestStack->getSession()->set('user_roles', $user->getRoles());
-        
         // Update last login
         $user->setLastLoginAt(new \DateTime());
         $this->entityManager->flush();
+        
+        // Create a proper Symfony security token
+        $token = new \Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken(
+            $user,
+            'main', // firewall name
+            $user->getRoles()
+        );
+        
+        // Set the token in the security context
+        $this->tokenStorage->setToken($token);
+        
+        // Store the token in session for Symfony to recognize
+        $session = $this->requestStack->getSession();
+        $session->set('_security_main', serialize($token));
+        
+        // Also store OAuth data for backup
+        $session->set('oauth_user_id', $user->getId());
+        $session->set('oauth_user_email', $user->getEmail());
+        $session->set('oauth_user_roles', $user->getRoles());
+        $session->set('oauth_authenticated', true);
+        $session->set('current_user', $user);
+        
+        // Debug output
+        error_log('OAuthController::authenticateUser called for user: ' . $user->getEmail());
+        error_log('Security token created and stored in session');
     }
 }
