@@ -1,0 +1,378 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Dashboard - Toms Music School{% endblock %}
+
+{% block body %}
+<div class="dashboard-container">
+    <!-- Welcome Header -->
+    <div class="welcome-header">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <h1 class="welcome-title">Welcome back, {{ user.firstName|default(user.email) }}!</h1>
+                    <p class="welcome-subtitle">Ready to continue your musical journey?</p>
+                </div>
+                <div class="col-md-4 text-md-end">
+                    <div class="user-avatar">
+                        <span class="avatar-initials">{{ user.avatarInitials }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-4">
+        <div class="row">
+            <!-- Main Content -->
+            <div class="col-lg-8">
+                <!-- Current Course Section -->
+                <div class="dashboard-section">
+                    <div class="section-header">
+                        <h3><i class="fas fa-graduation-cap me-2 text-primary"></i>Current Course</h3>
+                        <a href="#" class="btn btn-outline-primary btn-sm">View All Courses</a>
+                    </div>
+                    <div class="course-info">
+                        <h4>{{ currentCourse.title }}</h4>
+                        <p class="text-muted">{{ currentCourse.description }}</p>
+                        <div class="progress mb-2" style="height: 8px;">
+                            <div class="progress-bar" role="progressbar" style="width: {{ currentCourse.progress }}%" aria-valuenow="{{ currentCourse.progress }}" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <small class="text-muted">{{ currentCourse.lessonsCompleted }} of {{ currentCourse.totalLessons }} lessons completed</small>
+                            <a href="#" class="btn btn-primary">Continue Learning</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Upcoming Sessions Section -->
+                <div class="dashboard-section">
+                    <div class="section-header">
+                        <h3><i class="fas fa-calendar me-2 text-success"></i>Upcoming Sessions</h3>
+                        <a href="#" class="btn btn-outline-primary btn-sm">View Schedule</a>
+                    </div>
+                    {% for session in upcomingSessions %}
+                    <div class="session-card">
+                        <div class="session-info">
+                            <h5>{{ session.teacher }} - {{ session.instrument }}</h5>
+                            <p class="text-muted mb-2">{{ session.topic }}</p>
+                            <div class="session-meta">
+                                {% if session.isToday %}
+                                    <span class="badge bg-success me-2">Today</span>
+                                {% endif %}
+                                <span class="text-muted">{{ session.time }}</span>
+                            </div>
+                        </div>
+                        <div class="session-actions">
+                            <a href="#" class="btn btn-success btn-sm me-2">
+                                <i class="fas fa-video me-1"></i>Join Class
+                            </a>
+                            <a href="#" class="btn btn-outline-secondary btn-sm">
+                                <i class="fas fa-file-alt me-1"></i>Materials
+                            </a>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <!-- Recent Activity Section -->
+                <div class="dashboard-section">
+                    <div class="section-header">
+                        <h3><i class="fas fa-chart-line me-2 text-info"></i>Recent Activity</h3>
+                        <a href="#" class="btn btn-outline-primary btn-sm">View All</a>
+                    </div>
+                    {% for activity in recentActivity %}
+                    <div class="activity-item">
+                        <div class="activity-icon bg-{{ activity.color }}">
+                            <i class="fas fa-{{ activity.icon }}"></i>
+                        </div>
+                        <div class="activity-content">
+                            <h6 class="mb-1">{{ activity.title }}</h6>
+                            <p class="text-muted mb-1">{{ activity.description }}</p>
+                            <small class="text-muted">{{ activity.time }}</small>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="col-lg-4">
+                <!-- User Profile Card -->
+                <div class="dashboard-section">
+                    <div class="profile-card text-center">
+                        <div class="profile-avatar mb-3">
+                            <span class="avatar-initials-large">{{ user.avatarInitials }}</span>
+                        </div>
+                        <h5 class="mb-1">{{ user.fullName }}</h5>
+                        <p class="text-muted mb-3">{{ user.email }}</p>
+                        
+                        <div class="profile-stats mb-3">
+                            <div class="row text-center">
+                                <div class="col-4">
+                                    <div class="stat-item">
+                                        <h6 class="mb-1">{{ user.profileCompletionPercentage }}%</h6>
+                                        <small class="text-muted">Profile</small>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="stat-item">
+                                        <h6 class="mb-1">{{ user.level }}</h6>
+                                        <small class="text-muted">Level</small>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="stat-item">
+                                        <h6 class="mb-1">{{ user.experiencePoints }}</h6>
+                                        <small class="text-muted">XP</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="d-grid gap-2">
+                            <a href="{{ path('user_profile_edit') }}" class="btn btn-outline-primary btn-sm">
+                                <i class="fas fa-edit me-2"></i>Edit Profile
+                            </a>
+                            <a href="{{ path('user_settings') }}" class="btn btn-outline-secondary btn-sm">
+                                <i class="fas fa-cog me-2"></i>Settings
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="dashboard-section">
+                    <h5 class="mb-3"><i class="fas fa-bolt me-2 text-warning"></i>Quick Actions</h5>
+                    <div class="quick-actions">
+                        <a href="#" class="quick-action-item">
+                            <i class="fas fa-book me-2"></i>Browse Courses
+                        </a>
+                        <a href="#" class="quick-action-item">
+                            <i class="fas fa-calendar me-2"></i>Book Session
+                        </a>
+                        <a href="{{ path('user_achievements') }}" class="quick-action-item">
+                            <i class="fas fa-trophy me-2"></i>View Achievements
+                        </a>
+                        <a href="{{ path('user_progress') }}" class="quick-action-item">
+                            <i class="fas fa-chart-line me-2"></i>Progress Report
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Today's Goal -->
+                <div class="dashboard-section">
+                    <h5 class="mb-3"><i class="fas fa-bullseye me-2 text-danger"></i>Today's Goal</h5>
+                    <div class="goal-card">
+                        <h6 class="mb-2">{{ todayGoal.title }}</h6>
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <span class="badge bg-{{ todayGoal.status == 'in_progress' ? 'warning' : 'success' }}">
+                                {{ todayGoal.status == 'in_progress' ? 'In Progress' : 'Completed' }}
+                            </span>
+                        </div>
+                        {% if not todayGoal.completed %}
+                            <button class="btn btn-success btn-sm w-100">Mark Complete</button>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.dashboard-container {
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    min-height: 100vh;
+    padding-bottom: 2rem;
+}
+
+.welcome-header {
+    background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
+    color: white;
+    padding: 2rem 0;
+    margin-bottom: 2rem;
+}
+
+.welcome-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.welcome-subtitle {
+    font-size: 1.1rem;
+    opacity: 0.9;
+    margin-bottom: 0;
+}
+
+.user-avatar {
+    text-align: center;
+}
+
+.avatar-initials {
+    width: 60px;
+    height: 60px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: white;
+}
+
+.dashboard-section {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.section-header h3 {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.course-info h4 {
+    margin-bottom: 0.5rem;
+    color: #1f2937;
+}
+
+.session-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background: #f8fafc;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+}
+
+.session-info h5 {
+    margin-bottom: 0.25rem;
+    color: #1f2937;
+}
+
+.session-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.activity-item {
+    display: flex;
+    align-items: flex-start;
+    padding: 1rem 0;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.activity-item:last-child {
+    border-bottom: none;
+}
+
+.activity-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    margin-right: 1rem;
+    flex-shrink: 0;
+}
+
+.activity-content h6 {
+    margin-bottom: 0.25rem;
+    color: #1f2937;
+}
+
+.profile-card {
+    padding: 1rem;
+}
+
+.profile-avatar {
+    text-align: center;
+}
+
+.avatar-initials-large {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #3b82f6, #1e40af);
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    font-weight: 600;
+    color: white;
+}
+
+.stat-item h6 {
+    color: #1f2937;
+    font-weight: 600;
+}
+
+.quick-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.quick-action-item {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem;
+    background: #f8fafc;
+    border-radius: 8px;
+    color: #374151;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.quick-action-item:hover {
+    background: #e2e8f0;
+    color: #1f2937;
+    text-decoration: none;
+}
+
+.goal-card {
+    padding: 1rem;
+    background: #f8fafc;
+    border-radius: 8px;
+}
+
+.bg-success { background-color: #10b981 !important; }
+.bg-warning { background-color: #f59e0b !important; }
+.bg-info { background-color: #3b82f6 !important; }
+.bg-danger { background-color: #ef4444 !important; }
+
+@media (max-width: 768px) {
+    .welcome-title {
+        font-size: 2rem;
+    }
+    
+    .session-card {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+    
+    .session-actions {
+        width: 100%;
+        display: flex;
+        gap: 0.5rem;
+    }
+}
+</style>
+{% endblock %}

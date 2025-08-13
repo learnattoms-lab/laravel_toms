@@ -1,0 +1,35 @@
+framework:
+    secret: '%env(APP_SECRET)%'
+    http_method_override: false
+    handle_all_throwables: true
+    session:
+        enabled: true
+        cookie_secure: auto
+        cookie_samesite: lax
+    serializer:
+        enabled: true
+    property_access:
+        enabled: true
+    property_info:
+        enabled: true
+    router:
+        default_uri: null
+        strict_requirements: '%kernel.debug%'
+    # uid:
+    #     enabled: true
+    # rate_limiter:
+    #     enabled: true
+    # lock:
+    #     enabled: true
+    messenger:
+        enabled: true
+        default_bus: messenger.bus.default
+        buses:
+            messenger.bus.default: ~
+        transports:
+            async: '%env(MESSENGER_TRANSPORT_DSN)%'
+            failed: 'doctrine://default?queue_name=failed'
+            sync: 'sync://'
+        failure_transport: failed
+
+# Remove invalid parameters section

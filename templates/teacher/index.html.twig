@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <!-- Hero Section -->
+    <section class="hero-section" style="padding: 100px 0 60px;">
+        <div class="container text-center">
+            <h1 class="hero-title">Meet Our Expert Teachers</h1>
+            <p class="hero-subtitle">Learn from professional musicians who are passionate about teaching and helping you achieve your musical goals.</p>
+        </div>
+    </section>
+
+    <!-- Teachers Section -->
+    <section class="section">
+        <div class="container">
+            <div class="row g-4">
+                {% for teacher in teachers %}
+                <div class="col-lg-4 col-md-6">
+                    <div class="feature-card h-100">
+                        <div class="text-center mb-4">
+                            <div class="feature-icon mx-auto">
+                                <i class="fas fa-user-graduate"></i>
+                            </div>
+                        </div>
+                        <h3 class="feature-title text-center">{{ teacher.name }}</h3>
+                        <p class="text-center text-muted mb-3">
+                            <i class="fas fa-music me-2"></i>{{ teacher.instrument }}
+                        </p>
+                        <p class="feature-description mb-3">{{ teacher.bio }}</p>
+                        
+                        <div class="row text-center mb-3">
+                            <div class="col-6">
+                                <div class="d-flex align-items-center justify-content-center">
+                                    <i class="fas fa-star text-warning me-1"></i>
+                                    <span class="fw-bold">{{ teacher.rating }}</span>
+                                </div>
+                                <small class="text-muted">Rating</small>
+                            </div>
+                            <div class="col-6">
+                                <div class="fw-bold">{{ teacher.students }}</div>
+                                <small class="text-muted">Students</small>
+                            </div>
+                        </div>
+                        
+                        <div class="text-center mb-3">
+                            <span class="badge bg-primary fs-6">${{ teacher.hourly_rate }}/hour</span>
+                        </div>
+                        
+                        <div class="text-center">
+                            <a href="#" class="btn btn-outline-primary">
+                                <i class="fas fa-calendar me-2"></i>Book Lesson
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="section bg-light">
+        <div class="container text-center">
+            <h2 class="section-title">Ready to Start Learning?</h2>
+            <p class="lead mb-4">Choose your teacher and book your first lesson today!</p>
+            <a href="{{ path('plans') }}" class="btn btn-primary btn-lg">
+                <i class="fas fa-rocket me-2"></i>Get Started
+            </a>
+        </div>
+    </section>
+{% endblock %}

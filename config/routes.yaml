@@ -1,0 +1,121 @@
+# Main Application Routes
+app_home:
+    path: /
+    controller: App\Controller\HomeController::index
+
+app_about:
+    path: /about
+    controller: App\Controller\HomeController::about
+
+app_contact:
+    path: /contact
+    controller: App\Controller\HomeController::contact
+
+teachers:
+    path: /teachers
+    controller: App\Controller\TeacherController::index
+
+plans:
+    path: /plans
+    controller: App\Controller\PlanController::index
+
+# Authentication Routes
+login:
+    path: /login
+    controller: App\Controller\SecurityController::login
+
+register:
+    path: /register
+    controller: App\Controller\SecurityController::register
+
+logout:
+    path: /logout
+    controller: App\Controller\SecurityController::logout
+
+# User Profile Routes
+user_dashboard:
+    path: /user/dashboard
+    controller: App\Controller\UserProfileController::dashboard
+
+user_profile:
+    path: /user/profile
+    controller: App\Controller\UserProfileController::index
+
+user_profile_edit:
+    path: /user/profile/edit
+    controller: App\Controller\UserProfileController::edit
+
+user_achievements:
+    path: /user/achievements
+    controller: App\Controller\UserProfileController::achievements
+
+user_progress:
+    path: /user/progress
+    controller: App\Controller\UserProfileController::progress
+
+user_settings:
+    path: /user/settings
+    controller: App\Controller\UserProfileController::settings
+
+# OAuth Routes
+oauth_google:
+    path: /auth/google
+    controller: App\Controller\OAuthController::googleAuth
+
+oauth_google_callback:
+    path: /auth/google/callback
+    controller: App\Controller\OAuthController::googleCallback
+
+oauth_apple:
+    path: /auth/apple
+    controller: App\Controller\OAuthController::appleAuth
+
+oauth_apple_callback:
+    path: /auth/apple/callback
+    controller: App\Controller\OAuthController::appleCallback
+
+oauth_facebook:
+    path: /auth/facebook
+    controller: App\Controller\OAuthController::facebookAuth
+
+oauth_facebook_callback:
+    path: /auth/facebook/callback
+    controller: App\Controller\OAuthController::facebookCallback
+
+# Admin Routes
+admin_dashboard:
+    path: /admin
+    controller: App\Controller\AdminController::dashboard
+
+admin_teachers:
+    path: /admin/teachers
+    controller: App\Controller\AdminController::teachers
+
+admin_add_teacher:
+    path: /admin/teachers/add
+    controller: App\Controller\AdminController::addTeacher
+
+admin_edit_teacher:
+    path: /admin/teachers/{id}/edit
+    controller: App\Controller\AdminController::editTeacher
+
+admin_toggle_teacher_status:
+    path: /admin/teachers/{id}/toggle-status
+    controller: App\Controller\AdminController::toggleTeacherStatus
+
+admin_students:
+    path: /admin/students
+    controller: App\Controller\AdminController::students
+
+admin_analytics:
+    path: /admin/analytics
+    controller: App\Controller\AdminController::analytics
+
+admin_reports:
+    path: /admin/reports
+    controller: App\Controller\AdminController::reports
+
+# Teacher Login Route
+teacher_login:
+    path: /teacher/login
+    controller: App\Controller\SecurityController::teacherLogin

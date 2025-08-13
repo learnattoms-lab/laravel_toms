@@ -1,0 +1,243 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ page_title }}{% endblock %}
+
+{% block body %}
+<!-- Hero Section -->
+<section class="hero-section text-white text-center py-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <h1 class="display-4 fw-bold mb-4">Learn Music Online with Expert Teachers</h1>
+                <p class="lead mb-4">Master your favorite instrument with personalized 1-on-1 lessons from professional musicians. Start your musical journey today!</p>
+                <div class="d-flex gap-3 justify-content-center justify-content-lg-start">
+                    <a href="#plans" class="btn btn-primary btn-lg">Start Free Demo</a>
+                    <a href="#how-it-works" class="btn btn-outline-light btn-lg">How It Works</a>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <img src="{{ asset('images/DSC08629.JPG') }}" alt="Music Performance" class="img-fluid rounded-3 shadow-lg">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Why Choose Us Section -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold">Why Choose Toms Music School?</h2>
+            <p class="lead text-muted">Experience the difference of personalized online music education</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="text-center">
+                    <div class="feature-icon mb-3">
+                        <i class="fas fa-user-graduate fa-3x text-primary"></i>
+                    </div>
+                    <h4>Expert Teachers</h4>
+                    <p class="text-muted">Learn from professional musicians with years of teaching experience</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="text-center">
+                    <div class="feature-icon mb-3">
+                        <i class="fas fa-clock fa-3x text-primary"></i>
+                    </div>
+                    <h4>Flexible Scheduling</h4>
+                    <p class="text-muted">Book lessons at times that work for you, with easy rescheduling options</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="text-center">
+                    <div class="feature-icon mb-3">
+                        <i class="fas fa-chart-line fa-3x text-primary"></i>
+                    </div>
+                    <h4>Track Progress</h4>
+                    <p class="text-muted">Monitor your improvement with detailed progress tracking and feedback</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Learn Your Favorite Instrument Section -->
+<section class="py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold">Learn Your Favorite Instrument</h2>
+            <p class="lead text-muted">From guitar to piano, drums to vocals - we've got you covered</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-3">
+                <div class="card h-100 border-0 shadow-sm">
+                    <img src="{{ asset('images/WhatsApp Image 2025-08-10 at 20.46.02.jpeg') }}" class="card-img-top instrument-image" alt="Guitar player">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Guitar</h5>
+                        <p class="card-text text-muted">Acoustic, electric, or bass - master the strings</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="card h-100 border-0 shadow-sm">
+                    <img src="{{ asset('images/IMG_5860.JPEG') }}" class="card-img-top instrument-image" alt="Drummer">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Drums</h5>
+                        <p class="card-text text-muted">Build rhythm and coordination with expert guidance</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="card h-100 border-0 shadow-sm">
+                    <img src="{{ asset('images/WhatsApp Image 2025-08-10 at 20.46.11.jpeg') }}" class="card-img-top instrument-image" alt="Piano player">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Piano</h5>
+                        <p class="card-text text-muted">Classical, jazz, or contemporary piano techniques</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="card h-100 border-0 shadow-sm">
+                    <img src="{{ asset('images/WhatsApp Image 2025-08-10 at 20.46.20.jpeg') }}" class="card-img-top instrument-image" alt="Vocalist">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Vocals</h5>
+                        <p class="card-text text-muted">Develop your voice and singing technique</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- How It Works Section -->
+<section id="how-it-works" class="py-5 bg-light">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold">How It Works</h2>
+            <p class="lead text-muted">Get started with online music lessons in just 3 simple steps</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="text-center">
+                    <div class="step-number mb-3">1</div>
+                    <h4>Book Your Lesson</h4>
+                    <p class="text-muted">Choose your instrument, teacher, and preferred time slot</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="text-center">
+                    <div class="step-number mb-3">2</div>
+                    <h4>Connect Online</h4>
+                    <p class="text-muted">Join your lesson via Google Meet with your teacher</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="text-center">
+                    <div class="step-number mb-3">3</div>
+                    <h4>Practice & Improve</h4>
+                    <p class="text-muted">Get assignments, track progress, and watch yourself grow</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Performance Gallery Section -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-4 fw-bold text-dark mb-3">See Our Students in Action</h2>
+            <p class="lead text-muted fs-5">Real performances from real students - this could be you!</p>
+        </div>
+        <div class="row g-4 justify-content-center">
+            <div class="col-lg-5 col-md-6">
+                <div class="performance-card">
+                    <img src="{{ asset('images/WhatsApp Image 2025-08-10 at 20.46.27.jpeg') }}" alt="Live performance" class="img-fluid rounded-3 shadow-lg performance-gallery">
+                    <div class="performance-overlay">
+                        <h5 class="text-white fw-bold">Live Performance</h5>
+                        <p class="text-white-50">Capturing the energy on stage</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-5 col-md-6">
+                <div class="performance-card">
+                    <img src="{{ asset('images/IMG_5860.JPEG') }}" alt="Studio session" class="img-fluid rounded-3 shadow-lg performance-gallery">
+                    <div class="performance-overlay">
+                        <h5 class="text-white fw-bold">Studio Session</h5>
+                        <p class="text-white-50">Professional recording environment</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials Section -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold">What Our Students Say</h2>
+            <p class="lead text-muted">Don't just take our word for it - hear from our community</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center">
+                        <div class="stars mb-3">
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                        </div>
+                        <p class="card-text">"My guitar teacher is amazing! I've learned more in 3 months than I did in a year on my own."</p>
+                        <h6 class="card-title">- Sarah M.</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center">
+                        <div class="stars mb-3">
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                        </div>
+                        <p class="card-text">"The progress tracking system is incredible. I can see exactly how much I've improved!"</p>
+                        <h6 class="card-title">- Mike R.</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center">
+                        <div class="stars mb-3">
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                        </div>
+                        <p class="card-text">"Flexible scheduling and amazing teachers. Perfect for my busy lifestyle!"</p>
+                        <h6 class="card-title">- Lisa K.</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action Section -->
+<section id="plans" class="py-5 bg-secondary text-white">
+    <div class="container text-center">
+        <h2 class="display-5 fw-bold mb-4">Ready to Start Your Musical Journey?</h2>
+        <p class="lead mb-4">Join thousands of students who are already making music with us</p>
+        <div class="d-flex gap-3 justify-content-center">
+            <a href="/plans" class="btn btn-light btn-lg">View Plans</a>
+            <a href="/teachers" class="btn btn-outline-light btn-lg">Meet Our Teachers</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

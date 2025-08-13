@@ -1,0 +1,106 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <!-- Hero Section -->
+    <section class="hero-section" style="padding: 100px 0 60px;">
+        <div class="container text-center">
+            <h1 class="hero-title">Choose Your Learning Plan</h1>
+            <p class="hero-subtitle">Flexible options designed to fit your schedule and learning goals. Start with a free demo or commit to regular lessons.</p>
+        </div>
+    </section>
+
+    <!-- Plans Section -->
+    <section class="section">
+        <div class="container">
+            <div class="row g-4 justify-content-center">
+                {% for plan in plans %}
+                <div class="col-lg-4 col-md-6">
+                    <div class="feature-card h-100 position-relative">
+                        {% if plan.savings is defined %}
+                        <div class="position-absolute top-0 start-50 translate-middle">
+                            <span class="badge bg-success fs-6 px-3 py-2">{{ plan.savings }}</span>
+                        </div>
+                        {% endif %}
+                        
+                        <div class="text-center mb-4">
+                            <h3 class="feature-title">{{ plan.name }}</h3>
+                            <div class="mb-3">
+                                <span class="display-4 fw-bold text-primary">${{ plan.price }}</span>
+                                {% if plan.price > 0 %}
+                                <span class="text-muted">/{{ plan.duration }}</span>
+                                {% else %}
+                                <span class="text-muted">{{ plan.duration }}</span>
+                                {% endif %}
+                            </div>
+                            <p class="text-muted">{{ plan.sessions }} session{% if plan.sessions > 1 %}s{% endif %}</p>
+                        </div>
+                        
+                        <ul class="list-unstyled mb-4">
+                            {% for feature in plan.features %}
+                            <li class="mb-2">
+                                <i class="fas fa-check text-success me-2"></i>{{ feature }}
+                            </li>
+                            {% endfor %}
+                        </ul>
+                        
+                        <div class="text-center mt-auto">
+                            <a href="#" class="btn {{ plan.button_class }} btn-lg w-100">
+                                {{ plan.button_text }}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="section bg-light">
+        <div class="container">
+            <h2 class="section-title">Frequently Asked Questions</h2>
+            <div class="row g-4">
+                <div class="col-lg-6">
+                    <div class="feature-card">
+                        <h4><i class="fas fa-question-circle text-primary me-2"></i>Can I cancel my subscription?</h4>
+                        <p class="text-muted">Yes! You can cancel your monthly or yearly subscription at any time. No long-term commitments required.</p>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="feature-card">
+                        <h4><i class="fas fa-question-circle text-primary me-2"></i>What if I miss a lesson?</h4>
+                        <p class="text-muted">You get one free reschedule per month. Additional reschedules may result in lesson forfeiture.</p>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="feature-card">
+                        <h4><i class="fas fa-question-circle text-primary me-2"></i>How do online lessons work?</h4>
+                        <p class="text-muted">Lessons are conducted via video call. You'll receive a meeting link before each session and can access materials through our platform.</p>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="feature-card">
+                        <h4><i class="fas fa-question-circle text-primary me-2"></i>What equipment do I need?</h4>
+                        <p class="text-muted">You'll need your instrument, a computer/tablet with internet, and optionally a microphone for better audio quality.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="section bg-primary text-white">
+        <div class="container text-center">
+            <h2 class="section-title text-white">Still Have Questions?</h2>
+            <p class="lead mb-4">Our team is here to help you choose the perfect plan for your musical journey.</p>
+            <div class="d-flex flex-wrap justify-content-center gap-3">
+                <a href="{{ path('app_contact') }}" class="btn btn-light btn-lg">
+                    <i class="fas fa-envelope me-2"></i>Contact Us
+                </a>
+                <a href="{{ path('teachers') }}" class="btn btn-outline-light btn-lg">
+                    <i class="fas fa-users me-2"></i>Meet Teachers
+                </a>
+            </div>
+        </div>
+    </section>
+{% endblock %}
