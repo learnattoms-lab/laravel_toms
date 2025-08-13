@@ -594,6 +594,21 @@
             line-height: 1.6;
         }
         
+        .carousel-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .carousel-buttons .btn {
+            transition: all 0.3s ease;
+        }
+        
+        .carousel-buttons .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.2);
+        }
+        
         .carousel-item {
             padding: 2rem 0;
         }
@@ -670,6 +685,177 @@
             
             .carousel-control-next {
                 right: 1rem;
+            }
+        }
+        
+        /* Floating Request Call Button */
+        .floating-request-call {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 1000;
+            opacity: 0;
+            transform: translateY(100px);
+            transition: all 0.5s ease;
+        }
+        
+        .floating-request-call.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .request-call-btn {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 1rem 1.5rem;
+            font-weight: 600;
+            font-size: 1rem;
+            box-shadow: 0 0.5rem 1.5rem rgba(40, 167, 69, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
+        
+        .request-call-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0.75rem 2rem rgba(40, 167, 69, 0.4);
+            color: white;
+            text-decoration: none;
+        }
+        
+        .request-call-btn i {
+            font-size: 1.2rem;
+        }
+        
+        .request-call-modal {
+            display: none;
+            position: fixed;
+            z-index: 1001;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+        }
+        
+        .request-call-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 2rem;
+            border-radius: 1rem;
+            width: 90%;
+            max-width: 500px;
+            position: relative;
+            animation: modalSlideIn 0.3s ease;
+        }
+        
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #212529;
+            margin: 0;
+        }
+        
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #6c757d;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 0.25rem;
+            transition: all 0.3s ease;
+        }
+        
+        .close-modal:hover {
+            background: #f8f9fa;
+            color: #495057;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-label {
+            font-weight: 500;
+            color: #495057;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #e9ecef;
+            border-radius: 0.25rem;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: #28a745;
+            box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+        }
+        
+        .submit-request {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            border: none;
+            border-radius: 0.25rem;
+            padding: 0.75rem 1.5rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+        
+        .submit-request:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 0.25rem 0.5rem rgba(40, 167, 69, 0.3);
+        }
+        
+        @media (max-width: 768px) {
+            .floating-request-call {
+                bottom: 1rem;
+                right: 1rem;
+            }
+            
+            .request-call-btn {
+                padding: 0.75rem 1.25rem;
+                font-size: 0.875rem;
+            }
+            
+            .request-call-content {
+                margin: 10% auto;
+                width: 95%;
+                padding: 1.5rem;
             }
         }
     </style>
@@ -847,5 +1033,100 @@
     </script>
     
     {% block javascripts %}{% endblock %}
+    
+    <!-- Floating Request Call Button -->
+    <div class="floating-request-call" id="floatingRequestCall">
+        <button class="request-call-btn" onclick="openRequestCallModal()">
+            <i class="fas fa-phone"></i>
+            Request Call
+        </button>
+    </div>
+
+    <!-- Request Call Modal -->
+    <div class="request-call-modal" id="requestCallModal">
+        <div class="request-call-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Request a Call Back</h3>
+                <button class="close-modal" onclick="closeRequestCallModal()">&times;</button>
+            </div>
+            <form id="requestCallForm">
+                <div class="form-group">
+                    <label class="form-label" for="callName">Full Name *</label>
+                    <input type="text" class="form-control" id="callName" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="callPhone">Phone Number *</label>
+                    <input type="tel" class="form-control" id="callPhone" name="phone" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="callEmail">Email Address</label>
+                    <input type="email" class="form-control" id="callEmail" name="email">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="callMessage">Message</label>
+                    <textarea class="form-control" id="callMessage" name="message" rows="3" placeholder="Tell us about your musical interests and what you'd like to learn..."></textarea>
+                </div>
+                <button type="submit" class="submit-request">
+                    <i class="fas fa-phone me-2"></i>Request Call Back
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Floating request call button functionality
+        let requestCallShown = false;
+        
+        window.addEventListener('scroll', function() {
+            const scrollY = window.scrollY;
+            const floatingButton = document.getElementById('floatingRequestCall');
+            
+            // Show button after scrolling down 300px
+            if (scrollY > 300 && !requestCallShown) {
+                floatingButton.classList.add('show');
+                requestCallShown = true;
+            } else if (scrollY <= 300 && requestCallShown) {
+                floatingButton.classList.remove('show');
+                requestCallShown = false;
+            }
+        });
+        
+        function openRequestCallModal() {
+            document.getElementById('requestCallModal').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeRequestCallModal() {
+            document.getElementById('requestCallModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+        
+        // Close modal when clicking outside
+        window.addEventListener('click', function(event) {
+            const modal = document.getElementById('requestCallModal');
+            if (event.target === modal) {
+                closeRequestCallModal();
+            }
+        });
+        
+        // Handle form submission
+        document.getElementById('requestCallForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData);
+            
+            // Here you would typically send the data to your backend
+            console.log('Request call data:', data);
+            
+            // Show success message
+            alert('Thank you! We\'ll call you back within 24 hours.');
+            
+            // Close modal and reset form
+            closeRequestCallModal();
+            this.reset();
+        });
+    </script>
 </body>
 </html>

@@ -11,20 +11,56 @@
             <p class="lead">Discover your musical potential with personalized online lessons</p>
         </div>
         
-        <div id="musicCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div id="musicCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
             <div class="carousel-indicators">
                 <button type="button" data-bs-target="#musicCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
                 <button type="button" data-bs-target="#musicCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
                 <button type="button" data-bs-target="#musicCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                <button type="button" data-bs-target="#musicCarousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
             </div>
             
             <div class="carousel-inner">
                 <div class="carousel-item active">
                     <div class="row align-items-center">
                         <div class="col-lg-6">
+                            <h3 class="carousel-title">Start Free Demo</h3>
+                            <p class="carousel-text">Try our platform with a free 30-minute demo lesson. Experience personalized music instruction from our expert teachers.</p>
+                            <div class="carousel-buttons">
+                                <a href="{{ path('register') }}" class="btn btn-light btn-lg me-3">Start Free Demo</a>
+                                <a href="#how-it-works" class="btn btn-outline-light btn-lg">Learn More</a>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Free Demo" class="img-fluid rounded-3 shadow-lg">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="carousel-item">
+                    <div class="row align-items-center">
+                        <div class="col-lg-6">
+                            <h3 class="carousel-title">How It Works</h3>
+                            <p class="carousel-text">Get started in 3 simple steps: Book your lesson, connect online, and practice with expert guidance. It's that easy!</p>
+                            <div class="carousel-buttons">
+                                <a href="#how-it-works" class="btn btn-light btn-lg me-3">See How It Works</a>
+                                <a href="{{ path('register') }}" class="btn btn-outline-light btn-lg">Get Started</a>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <img src="https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="How It Works" class="img-fluid rounded-3 shadow-lg">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="carousel-item">
+                    <div class="row align-items-center">
+                        <div class="col-lg-6">
                             <h3 class="carousel-title">Master the Piano</h3>
                             <p class="carousel-text">Learn classical, jazz, and contemporary piano techniques from world-class instructors. Perfect for beginners and advanced players alike.</p>
-                            <a href="{{ path('register') }}" class="btn btn-light btn-lg">Start Learning Piano</a>
+                            <div class="carousel-buttons">
+                                <a href="{{ path('register') }}" class="btn btn-light btn-lg me-3">Start Learning Piano</a>
+                                <a href="#plans" class="btn btn-outline-light btn-lg">View Plans</a>
+                            </div>
                         </div>
                         <div class="col-lg-6">
                             <img src="https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Piano Learning" class="img-fluid rounded-3 shadow-lg">
@@ -37,23 +73,13 @@
                         <div class="col-lg-6">
                             <h3 class="carousel-title">Rock the Guitar</h3>
                             <p class="carousel-text">From acoustic to electric, learn strumming, fingerpicking, and advanced techniques. Join the ranks of guitar legends!</p>
-                            <a href="{{ path('register') }}" class="btn btn-light btn-lg">Start Learning Guitar</a>
+                            <div class="carousel-buttons">
+                                <a href="{{ path('register') }}" class="btn btn-light btn-lg me-3">Start Learning Guitar</a>
+                                <a href="#plans" class="btn btn-outline-light btn-lg">View Plans</a>
+                            </div>
                         </div>
                         <div class="col-lg-6">
                             <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Guitar Learning" class="img-fluid rounded-3 shadow-lg">
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="carousel-item">
-                    <div class="row align-items-center">
-                        <div class="col-lg-6">
-                            <h3 class="carousel-title">Find Your Voice</h3>
-                            <p class="carousel-text">Develop your singing voice with professional vocal training. Learn breathing techniques, pitch control, and performance skills.</p>
-                            <a href="{{ path('register') }}" class="btn btn-light btn-lg">Start Learning Vocals</a>
-                        </div>
-                        <div class="col-lg-6">
-                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Vocal Training" class="img-fluid rounded-3 shadow-lg">
                         </div>
                     </div>
                 </div>
