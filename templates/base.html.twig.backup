@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}{{ page_title|default('TOMS Music School') }}{% endblock %}</title>
+    <title>{% block title %}{{ page_title|default('TOMS Music School') }}{% endblock %</title>
     
     <!-- Favicon -->
     <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
@@ -691,65 +691,6 @@
             .carousel-control-next {
                 right: 1rem;
             }
-        }
-        
-        /* Modern Navigation Styles */
-        .navbar {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            transition: all 0.3s ease;
-            padding: 1rem 0;
-        }
-        
-        .navbar-brand {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: white !important;
-            text-decoration: none;
-        }
-        
-        .navbar-brand:hover {
-            color: rgba(255, 255, 255, 0.9) !important;
-        }
-        
-        .nav-link {
-            color: rgba(255, 255, 255, 0.9) !important;
-            font-weight: 500;
-            margin: 0 0.5rem;
-            padding: 0.5rem 1rem !important;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-        
-        .nav-link:hover {
-            color: white !important;
-            background: rgba(255, 255, 255, 0.1);
-            transform: translateY(-1px);
-        }
-        
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            width: 0;
-            height: 2px;
-            background: white;
-            transition: all 0.3s ease;
-            transform: translateX(-50%);
-        }
-        
-        .nav-link:hover::after {
-            width: 80%;
-        }
-        
-        .navbar-toggler {
-            border: none;
-            padding: 0.5rem;
-        }
-        
-        .navbar-toggler:focus {
-            box-shadow: none;
         }
         
         /* Floating Request Call Button */

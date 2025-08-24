@@ -1,0 +1,230 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ page_title }}{% endblock %}
+
+{% block body %}
+<div class="container mt-5 pt-5">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="mb-4">
+                <i class="fas fa-heartbeat me-2"></i>API Health Status
+            </h1>
+            
+            <div class="row">
+                <!-- Google Calendar API Health -->
+                <div class="col-lg-4 mb-4">
+                    <div class="card h-100">
+                        <div class="card-header d-flex align-items-center">
+                            <i class="fab fa-google me-2 text-primary"></i>
+                            <h5 class="mb-0">Google Calendar API</h5>
+                        </div>
+                        <div class="card-body">
+                            {% set status = health_status.google_calendar %}
+                            <div class="d-flex align-items-center mb-3">
+                                {% if status.status == 'success' %}
+                                    <span class="badge bg-success me-2">
+                                        <i class="fas fa-check-circle"></i> Healthy
+                                    </span>
+                                {% elseif status.status == 'warning' %}
+                                    <span class="badge bg-warning me-2">
+                                        <i class="fas fa-exclamation-triangle"></i> Warning
+                                    </span>
+                                {% elseif status.status == 'error' %}
+                                    <span class="badge bg-danger me-2">
+                                        <i class="fas fa-times-circle"></i> Error
+                                    </span>
+                                {% else %}
+                                    <span class="badge bg-secondary me-2">
+                                        <i class="fas fa-question-circle"></i> Unknown
+                                    </span>
+                                {% endif %}
+                            </div>
+                            
+                            <p class="card-text">{{ status.message }}</p>
+                            
+                            {% if status.details|length > 0 %}
+                                <ul class="list-unstyled">
+                                    {% for detail in status.details %}
+                                        <li class="mb-1">
+                                            <i class="fas fa-info-circle text-info me-1"></i>
+                                            {{ detail }}
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Azure Blob Storage Health -->
+                <div class="col-lg-4 mb-4">
+                    <div class="card h-100">
+                        <div class="card-header d-flex align-items-center">
+                            <i class="fab fa-microsoft me-2 text-primary"></i>
+                            <h5 class="mb-0">Azure Blob Storage</h5>
+                        </div>
+                        <div class="card-body">
+                            {% set status = health_status.azure_blob_storage %}
+                            <div class="d-flex align-items-center mb-3">
+                                {% if status.status == 'success' %}
+                                    <span class="badge bg-success me-2">
+                                        <i class="fas fa-check-circle"></i> Healthy
+                                    </span>
+                                {% elseif status.status == 'warning' %}
+                                    <span class="badge bg-warning me-2">
+                                        <i class="fas fa-exclamation-triangle"></i> Warning
+                                    </span>
+                                {% elseif status.status == 'error' %}
+                                    <span class="badge bg-danger me-2">
+                                        <i class="fas fa-times-circle"></i> Error
+                                    </span>
+                                {% else %}
+                                    <span class="badge bg-secondary me-2">
+                                        <i class="fas fa-question-circle"></i> Unknown
+                                    </span>
+                                {% endif %}
+                            </div>
+                            
+                            <p class="card-text">{{ status.message }}</p>
+                            
+                            {% if status.details|length > 0 %}
+                                <ul class="list-unstyled">
+                                    {% for detail in status.details %}
+                                        <li class="mb-1">
+                                            <i class="fas fa-info-circle text-info me-1"></i>
+                                            {{ detail }}
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- OAuth Credentials Health -->
+                <div class="col-lg-4 mb-4">
+                    <div class="card h-100">
+                        <div class="card-header d-flex align-items-center">
+                            <i class="fas fa-key me-2 text-primary"></i>
+                            <h5 class="mb-0">OAuth Credentials</h5>
+                        </div>
+                        <div class="card-body">
+                            {% set status = health_status.oauth_credentials %}
+                            <div class="d-flex align-items-center mb-3">
+                                {% if status.status == 'success' %}
+                                    <span class="badge bg-success me-2">
+                                        <i class="fas fa-check-circle"></i> Healthy
+                                    </span>
+                                {% elseif status.status == 'warning' %}
+                                    <span class="badge bg-warning me-2">
+                                        <i class="fas fa-exclamation-triangle"></i> Warning
+                                    </span>
+                                {% elseif status.status == 'error' %}
+                                    <span class="badge bg-danger me-2">
+                                        <i class="fas fa-times-circle"></i> Error
+                                    </span>
+                                {% else %}
+                                    <span class="badge bg-secondary me-2">
+                                        <i class="fas fa-question-circle"></i> Unknown
+                                    </span>
+                                {% endif %}
+                            </div>
+                            
+                            <p class="card-text">{{ status.message }}</p>
+                            
+                            {% if status.details|length > 0 %}
+                                <ul class="list-unstyled">
+                                    {% for detail in status.details %}
+                                        <li class="mb-1">
+                                            <i class="fas fa-info-circle text-info me-1"></i>
+                                            {{ detail }}
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Environment Configuration Status -->
+            <div class="row mt-4">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="mb-0">
+                                <i class="fas fa-cog me-2"></i>Environment Configuration
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h6>Google OAuth</h6>
+                                    <ul class="list-unstyled">
+                                        <li class="mb-1">
+                                            <i class="fas fa-circle me-1 {% if app.environment == 'prod' and app.debug == false %}text-success{% else %}text-warning{% endif %}"></i>
+                                            GOOGLE_CLIENT_ID: 
+                                            {% if app.environment == 'prod' and app.debug == false %}
+                                                <span class="text-muted">Configured</span>
+                                            {% else %}
+                                                <span class="text-info">{{ app.environment == 'prod' and app.debug == false ? 'Set' : 'Not set' }}</span>
+                                            {% endif %}
+                                        </li>
+                                        <li class="mb-1">
+                                            <i class="fas fa-circle me-1 {% if app.environment == 'prod' and app.debug == false %}text-success{% else %}text-warning{% endif %}"></i>
+                                            GOOGLE_CLIENT_SECRET: 
+                                            {% if app.environment == 'prod' and app.debug == false %}
+                                                <span class="text-muted">Configured</span>
+                                            {% else %}
+                                                <span class="text-info">{{ app.environment == 'prod' and app.debug == false ? 'Set' : 'Not set' }}</span>
+                                            {% endif %}
+                                        </li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="col-md-6">
+                                    <h6>Azure Blob Storage</h6>
+                                    <ul class="list-unstyled">
+                                        <li class="mb-1">
+                                            <i class="fas fa-circle me-1 {% if app.environment == 'prod' and app.debug == false %}text-success{% else %}text-warning{% endif %}"></i>
+                                            AZURE_BLOB_CONNECTION_STRING: 
+                                            {% if app.environment == 'prod' and app.debug == false %}
+                                                <span class="text-muted">Configured</span>
+                                            {% else %}
+                                                <span class="text-info">{{ app.environment == 'prod' and app.debug == false ? 'Set' : 'Not set' }}</span>
+                                            {% endif %}
+                                        </li>
+                                        <li class="mb-1">
+                                            <i class="fas fa-circle me-1 {% if app.environment == 'prod' and app.debug == false %}text-success{% else %}text-warning{% endif %}"></i>
+                                            AZURE_BLOB_CONTAINER: 
+                                            {% if app.environment == 'prod' and app.debug == false %}
+                                                <span class="text-muted">Configured</span>
+                                            {% else %}
+                                                <span class="text-info">{{ app.environment == 'prod' and app.debug == false ? 'Set' : 'Not set' }}</span>
+                                            {% endif %}
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Actions -->
+            <div class="row mt-4">
+                <div class="col-12">
+                    <div class="d-flex gap-2">
+                        <a href="{{ path('admin_dashboard') }}" class="btn btn-secondary">
+                            <i class="fas fa-arrow-left me-2"></i>Back to Dashboard
+                        </a>
+                        <button class="btn btn-primary" onclick="location.reload()">
+                            <i class="fas fa-sync-alt me-2"></i>Refresh Status
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

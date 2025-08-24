@@ -1,0 +1,524 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ course.name }} - Student Dashboard{% endblock %}
+
+{% block body %}
+<div class="course-detail-dashboard">
+    <!-- Course Header -->
+    <div class="course-header bg-primary text-white py-4">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb mb-2">
+                            <li class="breadcrumb-item"><a href="{{ path('student_dashboard') }}" class="text-white-50">Dashboard</a></li>
+                            <li class="breadcrumb-item active text-white" aria-current="page">{{ course.name }}</li>
+                        </ol>
+                    </nav>
+                    <h1 class="h2 mb-2">{{ course.name }}</h1>
+                    <p class="mb-0 opacity-75">{{ course.teacher }} • {{ course.instrument }}</p>
+                </div>
+                <div class="col-md-4 text-md-end">
+                    <div class="course-quick-stats">
+                        <div class="stat-item">
+                            <span class="stat-number">{{ course.attendance }}%</span>
+                            <span class="stat-label">Attendance</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Course Overview -->
+    <div class="course-overview-section py-4">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-8">
+                    <div class="course-info-card">
+                        <div class="row g-4">
+                            <div class="col-md-6">
+                                <div class="info-item">
+                                    <div class="info-icon">
+                                        <i class="fas fa-calendar"></i>
+                                    </div>
+                                    <div class="info-content">
+                                        <h4>Course Schedule</h4>
+                                        <p>{{ course.startDate|date('M d, Y') }} - {{ course.endDate|date('M d, Y') }}</p>
+                                        <small class="text-muted">{{ course.totalSessions }} sessions • {{ course.sessionDuration }} minutes each</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="info-item">
+                                    <div class="info-icon">
+                                        <i class="fas fa-clock"></i>
+                                    </div>
+                                    <div class="info-content">
+                                        <h4>Class Time</h4>
+                                        <p>{{ course.startTime }} - {{ course.endTime }} ({{ course.timezone }})</p>
+                                        <small class="text-muted">Weekly sessions</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="course-progress-card">
+                        <h4>Your Progress</h4>
+                        <div class="progress-circle">
+                            <div class="progress-number">{{ course.attendedSessions }}/{{ course.totalSessions }}</div>
+                            <div class="progress-label">Sessions Attended</div>
+                        </div>
+                        <div class="progress-bar-container">
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" style="width: {{ (course.attendedSessions / course.totalSessions) * 100 }}%" aria-valuenow="{{ course.attendedSessions }}" aria-valuemin="0" aria-valuemax="{{ course.totalSessions }}"></div>
+                            </div>
+                            <div class="progress-text">{{ ((course.attendedSessions / course.totalSessions) * 100)|round(1) }}% Complete</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sessions Section -->
+    <div class="sessions-section py-4">
+        <div class="container">
+            <div class="sessions-header">
+                <h2>Sessions</h2>
+                <p class="text-muted">Track your attendance and access session materials</p>
+            </div>
+            
+            <div class="sessions-grid">
+                {% for session in sessions %}
+                <div class="session-card {{ session.status }}">
+                    <div class="session-header">
+                        <div class="session-date">
+                            <div class="date-day">{{ session.date|date('M d') }}</div>
+                            <div class="date-time">{{ session.time }}</div>
+                        </div>
+                        <div class="session-status">
+                            {% if session.status == 'completed' %}
+                                <span class="status-badge completed">
+                                    <i class="fas fa-check-circle"></i> Completed
+                                </span>
+                            {% elseif session.status == 'upcoming' %}
+                                <span class="status-badge upcoming">
+                                    <i class="fas fa-clock"></i> Upcoming
+                                </span>
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+                    <div class="session-content">
+                        {% if session.status == 'completed' %}
+                            <div class="attendance-info">
+                                <div class="attendance-status">
+                                    <i class="fas fa-user-check text-success"></i>
+                                    <span class="text-success fw-bold">Present</span>
+                                </div>
+                                {% if session.notes %}
+                                <div class="teacher-notes">
+                                    <small class="text-muted">
+                                        <i class="fas fa-comment"></i> {{ session.notes }}
+                                    </small>
+                                </div>
+                                {% endif %}
+                            </div>
+                        {% endif %}
+                        
+                        <div class="session-actions">
+                            {% if session.status == 'completed' %}
+                                {% if session.recording %}
+                                <a href="{{ path('student_view_recording', {id: session.id}) }}" class="btn btn-outline-primary btn-sm">
+                                    <i class="fas fa-play me-1"></i> Watch Recording
+                                </a>
+                                {% endif %}
+                                {% if session.materials|length > 0 %}
+                                <a href="{{ path('student_download_materials', {id: session.id}) }}" class="btn btn-outline-secondary btn-sm">
+                                    <i class="fas fa-download me-1"></i> Materials ({{ session.materials|length }})
+                                </a>
+                                {% endif %}
+                            {% else %}
+                                <button class="btn btn-success btn-sm" disabled>
+                                    <i class="fas fa-video me-1"></i> Join Session
+                                </button>
+                                {% if session.materials|length > 0 %}
+                                <a href="{{ path('student_download_materials', {id: session.id}) }}" class="btn btn-outline-secondary btn-sm">
+                                    <i class="fas fa-download me-1"></i> Preview Materials
+                                </a>
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Course Actions -->
+    <div class="course-actions-section py-4 bg-light">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <div class="action-card">
+                        <div class="action-icon">
+                            <i class="fas fa-video"></i>
+                        </div>
+                        <div class="action-content">
+                            <h4>Join Next Session</h4>
+                            <p>Connect with your teacher for the upcoming lesson</p>
+                            <a href="#" class="btn btn-primary">Join Session</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="action-card">
+                        <div class="action-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="action-content">
+                            <h4>Contact Teacher</h4>
+                            <p>Have questions? Send a message to {{ course.teacher }}</p>
+                            <a href="#" class="btn btn-outline-primary">Send Message</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block stylesheets %}
+<style>
+    /* Course Detail Dashboard Styles */
+    .course-detail-dashboard {
+        min-height: 100vh;
+        background: #f8f9fa;
+    }
+
+    /* Course Header */
+    .course-header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+
+    .breadcrumb-item a {
+        text-decoration: none;
+    }
+
+    .breadcrumb-item a:hover {
+        text-decoration: underline;
+    }
+
+    .course-quick-stats {
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .stat-item {
+        text-align: center;
+        padding: 1rem;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+        backdrop-filter: blur(10px);
+    }
+
+    .stat-number {
+        display: block;
+        font-size: 2rem;
+        font-weight: 700;
+        line-height: 1;
+    }
+
+    .stat-label {
+        font-size: 0.875rem;
+        opacity: 0.9;
+    }
+
+    /* Course Overview Section */
+    .course-info-card {
+        background: white;
+        border-radius: 16px;
+        padding: 2rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        border: 1px solid #e9ecef;
+        height: 100%;
+    }
+
+    .info-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .info-icon {
+        width: 50px;
+        height: 50px;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1.25rem;
+        flex-shrink: 0;
+    }
+
+    .info-content h4 {
+        font-size: 1.125rem;
+        font-weight: 600;
+        color: #212529;
+        margin-bottom: 0.5rem;
+    }
+
+    .info-content p {
+        color: #495057;
+        margin-bottom: 0.25rem;
+    }
+
+    .info-content small {
+        font-size: 0.75rem;
+    }
+
+    /* Course Progress Card */
+    .course-progress-card {
+        background: white;
+        border-radius: 16px;
+        padding: 2rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        border: 1px solid #e9ecef;
+        height: 100%;
+        text-align: center;
+    }
+
+    .course-progress-card h4 {
+        color: #212529;
+        margin-bottom: 1.5rem;
+    }
+
+    .progress-circle {
+        margin-bottom: 1.5rem;
+    }
+
+    .progress-number {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #667eea;
+        line-height: 1;
+    }
+
+    .progress-label {
+        font-size: 0.875rem;
+        color: #6c757d;
+        margin-top: 0.25rem;
+    }
+
+    .progress-bar-container {
+        text-align: left;
+    }
+
+    .progress {
+        height: 8px;
+        border-radius: 4px;
+        background: #e9ecef;
+        margin-bottom: 0.5rem;
+    }
+
+    .progress-bar {
+        background: linear-gradient(90deg, #667eea, #764ba2);
+        border-radius: 4px;
+    }
+
+    .progress-text {
+        font-size: 0.875rem;
+        color: #6c757d;
+        font-weight: 500;
+    }
+
+    /* Sessions Section */
+    .sessions-header {
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+
+    .sessions-header h2 {
+        color: #212529;
+        margin-bottom: 0.5rem;
+    }
+
+    .sessions-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 1.5rem;
+    }
+
+    .session-card {
+        background: white;
+        border-radius: 16px;
+        padding: 1.5rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        border: 1px solid #e9ecef;
+        transition: all 0.3s ease;
+    }
+
+    .session-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .session-card.completed {
+        border-left: 4px solid #28a745;
+    }
+
+    .session-card.upcoming {
+        border-left: 4px solid #ffc107;
+    }
+
+    .session-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 1rem;
+    }
+
+    .session-date {
+        text-align: center;
+    }
+
+    .date-day {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: #212529;
+        line-height: 1;
+    }
+
+    .date-time {
+        font-size: 0.875rem;
+        color: #6c757d;
+        margin-top: 0.25rem;
+    }
+
+    .status-badge {
+        padding: 0.25rem 0.75rem;
+        border-radius: 50px;
+        font-size: 0.75rem;
+        font-weight: 600;
+    }
+
+    .status-badge.completed {
+        background: #d4edda;
+        color: #155724;
+    }
+
+    .status-badge.upcoming {
+        background: #fff3cd;
+        color: #856404;
+    }
+
+    .session-content {
+        margin-bottom: 1rem;
+    }
+
+    .attendance-info {
+        margin-bottom: 1rem;
+    }
+
+    .attendance-status {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .teacher-notes {
+        padding: 0.75rem;
+        background: #f8f9fa;
+        border-radius: 8px;
+        border-left: 3px solid #667eea;
+    }
+
+    .session-actions {
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+    }
+
+    .btn {
+        border-radius: 8px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+
+    .btn:hover {
+        transform: translateY(-1px);
+    }
+
+    /* Course Actions Section */
+    .action-card {
+        background: white;
+        border-radius: 16px;
+        padding: 2rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        border: 1px solid #e9ecef;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+    }
+
+    .action-icon {
+        width: 60px;
+        height: 60px;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1.5rem;
+        flex-shrink: 0;
+    }
+
+    .action-content h4 {
+        color: #212529;
+        margin-bottom: 0.5rem;
+    }
+
+    .action-content p {
+        color: #6c757d;
+        margin-bottom: 1rem;
+        font-size: 0.875rem;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .course-quick-stats {
+            justify-content: center;
+            margin-top: 1rem;
+        }
+
+        .sessions-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .action-card {
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .info-item {
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .info-icon {
+            margin: 0 auto;
+        }
+    }
+</style>
+{% endblock %}
+

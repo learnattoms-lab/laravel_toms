@@ -128,3 +128,8 @@ admin_reports:
 teacher_login:
     path: /teacher/login
     controller: App\Controller\SecurityController::teacherLogin
+
+# Course Detail Route (integrated with existing user dashboard)
+user_course_detail:
+    path: /user/course/{id}
+    controller: App\Controller\UserProfileController::courseDetail

@@ -1,0 +1,613 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Student Dashboard - Toms Music School{% endblock %}
+
+{% block body %}
+<div class="student-dashboard">
+    <!-- Dashboard Header -->
+    <div class="dashboard-header bg-primary text-white py-4">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <h1 class="h2 mb-2">Welcome back, Student! 🎵</h1>
+                    <p class="mb-0 opacity-75">Track your progress across all your music courses</p>
+                </div>
+                <div class="col-md-4 text-md-end">
+                    <div class="quick-stats">
+                        <div class="stat-item">
+                            <span class="stat-number">{{ enrolledCourses|length }}</span>
+                            <span class="stat-label">Active Courses</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dashboard Navigation Tabs -->
+    <div class="dashboard-tabs bg-light border-bottom">
+        <div class="container">
+            <ul class="nav nav-tabs nav-fill" id="dashboardTabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="all-courses-tab" data-bs-toggle="tab" data-bs-target="#all-courses" type="button" role="tab">
+                        <i class="fas fa-graduation-cap me-2"></i>All Courses
+                    </button>
+                </li>
+                {% for course in enrolledCourses %}
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="course-{{ course.id }}-tab" data-bs-toggle="tab" data-bs-target="#course-{{ course.id }}" type="button" role="tab">
+                        <i class="fas fa-{{ course.instrument|lower == 'piano' ? 'piano' : (course.instrument|lower == 'guitar' ? 'guitar' : 'microphone') }} me-2"></i>{{ course.instrument }}
+                    </button>
+                </li>
+                {% endfor %}
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="completed-tab" data-bs-toggle="tab" data-bs-target="#completed" type="button" role="tab">
+                        <i class="fas fa-trophy me-2"></i>Completed
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Dashboard Content -->
+    <div class="dashboard-content py-4">
+        <div class="container">
+            <div class="tab-content" id="dashboardTabContent">
+                <!-- All Courses Tab -->
+                <div class="tab-pane fade show active" id="all-courses" role="tabpanel">
+                    <div class="row g-4">
+                        {% for course in enrolledCourses %}
+                        <div class="col-lg-4 col-md-6">
+                            <div class="course-card h-100">
+                                <div class="course-image">
+                                    <img src="{{ course.image }}" alt="{{ course.name }}" class="img-fluid">
+                                    <div class="course-status-badge {{ course.status }}">
+                                        {% if course.status == 'active' %}
+                                            <i class="fas fa-play"></i> Active
+                                        {% elseif course.status == 'upcoming' %}
+                                            <i class="fas fa-clock"></i> Upcoming
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="course-content">
+                                    <div class="course-header">
+                                        <h3 class="course-title">{{ course.name }}</h3>
+                                        <p class="course-teacher">
+                                            <i class="fas fa-user-graduate me-1"></i>{{ course.teacher }}
+                                        </p>
+                                    </div>
+                                    
+                                    <div class="course-progress">
+                                        <div class="progress-info">
+                                            <span class="progress-text">{{ course.completedSessions }}/{{ course.totalSessions }} sessions</span>
+                                            <span class="progress-percentage">{{ course.progress|round(1) }}%</span>
+                                        </div>
+                                        <div class="progress">
+                                            <div class="progress-bar" role="progressbar" style="width: {{ course.progress }}%" aria-valuenow="{{ course.progress }}" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="course-details">
+                                        <div class="detail-item">
+                                            <i class="fas fa-calendar-alt"></i>
+                                            <span>{{ course.startDate|date('M d') }} - {{ course.endDate|date('M d, Y') }}</span>
+                                        </div>
+                                        <div class="detail-item">
+                                            <i class="fas fa-clock"></i>
+                                            <span>Next: {{ course.nextSession|date('M d, g:i A') }}</span>
+                                        </div>
+                                        <div class="detail-item">
+                                            <i class="fas fa-check-circle"></i>
+                                            <span>{{ course.attendance }}% attendance</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="course-actions">
+                                        <a href="{{ path('student_course_detail', {id: course.id}) }}" class="btn btn-primary btn-sm">
+                                            <i class="fas fa-eye me-1"></i>View Details
+                                        </a>
+                                        {% if course.status == 'active' %}
+                                        <a href="#" class="btn btn-success btn-sm">
+                                            <i class="fas fa-video me-1"></i>Join Next
+                                        </a>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <!-- Individual Course Tabs -->
+                {% for course in enrolledCourses %}
+                <div class="tab-pane fade" id="course-{{ course.id }}" role="tabpanel">
+                    <div class="course-overview">
+                        <div class="row">
+                            <div class="col-lg-8">
+                                <div class="course-header-large">
+                                    <h2>{{ course.name }}</h2>
+                                    <p class="lead">{{ course.teacher }} • {{ course.instrument }}</p>
+                                </div>
+                                
+                                <div class="course-stats-grid">
+                                    <div class="stat-card">
+                                        <div class="stat-icon">
+                                            <i class="fas fa-calendar"></i>
+                                        </div>
+                                        <div class="stat-content">
+                                            <div class="stat-number">{{ course.totalSessions }}</div>
+                                            <div class="stat-label">Total Sessions</div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="stat-card">
+                                        <div class="stat-icon">
+                                            <i class="fas fa-check-circle"></i>
+                                        </div>
+                                        <div class="stat-content">
+                                            <div class="stat-number">{{ course.completedSessions }}</div>
+                                            <div class="stat-label">Completed</div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="stat-card">
+                                        <div class="stat-icon">
+                                            <i class="fas fa-clock"></i>
+                                        </div>
+                                        <div class="stat-content">
+                                            <div class="stat-number">{{ course.attendance }}%</div>
+                                            <div class="stat-label">Attendance</div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="stat-card">
+                                        <div class="stat-icon">
+                                            <i class="fas fa-progress-bar"></i>
+                                        </div>
+                                        <div class="stat-content">
+                                            <div class="stat-number">{{ course.progress|round(1) }}%</div>
+                                            <div class="stat-label">Progress</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="course-actions-large">
+                                    <a href="{{ path('student_course_detail', {id: course.id}) }}" class="btn btn-primary btn-lg">
+                                        <i class="fas fa-eye me-2"></i>View Full Course Details
+                                    </a>
+                                    {% if course.status == 'active' %}
+                                    <a href="#" class="btn btn-success btn-lg">
+                                        <i class="fas fa-video me-2"></i>Join Next Session
+                                    </a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            
+                            <div class="col-lg-4">
+                                <div class="course-sidebar">
+                                    <div class="course-image-large">
+                                        <img src="{{ course.image }}" alt="{{ course.name }}" class="img-fluid rounded">
+                                    </div>
+                                    
+                                    <div class="course-schedule">
+                                        <h4>Schedule</h4>
+                                        <div class="schedule-item">
+                                            <i class="fas fa-calendar"></i>
+                                            <span>{{ course.startDate|date('M d, Y') }} - {{ course.endDate|date('M d, Y') }}</span>
+                                        </div>
+                                        <div class="schedule-item">
+                                            <i class="fas fa-clock"></i>
+                                            <span>Next: {{ course.nextSession|date('M d, g:i A') }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+
+                <!-- Completed Courses Tab -->
+                <div class="tab-pane fade" id="completed" role="tabpanel">
+                    <div class="completed-courses">
+                        <div class="text-center py-5">
+                            <div class="completed-icon mb-3">
+                                <i class="fas fa-trophy fa-3x text-warning"></i>
+                            </div>
+                            <h3>No Completed Courses Yet</h3>
+                            <p class="text-muted">Complete your first course to see it here!</p>
+                            <a href="#all-courses" class="btn btn-primary" data-bs-toggle="tab">
+                                <i class="fas fa-arrow-left me-2"></i>Back to Active Courses
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block stylesheets %}
+<style>
+    /* Student Dashboard Styles */
+    .student-dashboard {
+        min-height: 100vh;
+        background: #f8f9fa;
+    }
+
+    /* Dashboard Header */
+    .dashboard-header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+
+    .quick-stats {
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .stat-item {
+        text-align: center;
+        padding: 1rem;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+        backdrop-filter: blur(10px);
+    }
+
+    .stat-number {
+        display: block;
+        font-size: 2rem;
+        font-weight: 700;
+        line-height: 1;
+    }
+
+    .stat-label {
+        font-size: 0.875rem;
+        opacity: 0.9;
+    }
+
+    /* Dashboard Tabs */
+    .dashboard-tabs {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        background: white;
+    }
+
+    .dashboard-tabs .nav-tabs {
+        border-bottom: none;
+    }
+
+    .dashboard-tabs .nav-link {
+        border: none;
+        color: #6c757d;
+        font-weight: 500;
+        padding: 1rem 1.5rem;
+        transition: all 0.3s ease;
+    }
+
+    .dashboard-tabs .nav-link:hover {
+        color: #495057;
+        background: rgba(102, 126, 234, 0.1);
+    }
+
+    .dashboard-tabs .nav-link.active {
+        color: #667eea;
+        background: rgba(102, 126, 234, 0.1);
+        border-bottom: 3px solid #667eea;
+    }
+
+    /* Course Cards */
+    .course-card {
+        background: white;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        border: 1px solid #e9ecef;
+        transition: all 0.3s ease;
+    }
+
+    .course-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .course-image {
+        position: relative;
+        height: 200px;
+        overflow: hidden;
+    }
+
+    .course-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+    }
+
+    .course-card:hover .course-image img {
+        transform: scale(1.05);
+    }
+
+    .course-status-badge {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        padding: 0.5rem 1rem;
+        border-radius: 50px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: white;
+    }
+
+    .course-status-badge.active {
+        background: #28a745;
+    }
+
+    .course-status-badge.upcoming {
+        background: #ffc107;
+        color: #212529;
+    }
+
+    .course-content {
+        padding: 1.5rem;
+    }
+
+    .course-title {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: #212529;
+        margin-bottom: 0.5rem;
+        line-height: 1.3;
+    }
+
+    .course-teacher {
+        color: #6c757d;
+        font-size: 0.875rem;
+        margin-bottom: 1rem;
+    }
+
+    /* Course Progress */
+    .course-progress {
+        margin-bottom: 1.5rem;
+    }
+
+    .progress-info {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 0.5rem;
+    }
+
+    .progress-text {
+        font-size: 0.875rem;
+        color: #6c757d;
+    }
+
+    .progress-percentage {
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: #667eea;
+    }
+
+    .progress {
+        height: 8px;
+        border-radius: 4px;
+        background: #e9ecef;
+    }
+
+    .progress-bar {
+        background: linear-gradient(90deg, #667eea, #764ba2);
+        border-radius: 4px;
+    }
+
+    /* Course Details */
+    .course-details {
+        margin-bottom: 1.5rem;
+    }
+
+    .detail-item {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 0.5rem;
+        font-size: 0.875rem;
+        color: #6c757d;
+    }
+
+    .detail-item i {
+        width: 16px;
+        color: #667eea;
+    }
+
+    /* Course Actions */
+    .course-actions {
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+    }
+
+    .btn {
+        border-radius: 8px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+
+    .btn:hover {
+        transform: translateY(-1px);
+    }
+
+    /* Course Overview (Individual Tab) */
+    .course-overview {
+        background: white;
+        border-radius: 16px;
+        padding: 2rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    }
+
+    .course-header-large h2 {
+        color: #212529;
+        margin-bottom: 0.5rem;
+    }
+
+    .course-header-large .lead {
+        color: #6c757d;
+        margin-bottom: 2rem;
+    }
+
+    /* Course Stats Grid */
+    .course-stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+    }
+
+    .stat-card {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 1.5rem;
+        background: #f8f9fa;
+        border-radius: 12px;
+        border: 1px solid #e9ecef;
+    }
+
+    .stat-icon {
+        width: 50px;
+        height: 50px;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1.25rem;
+    }
+
+    .stat-content .stat-number {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #212529;
+        line-height: 1;
+    }
+
+    .stat-content .stat-label {
+        font-size: 0.875rem;
+        color: #6c757d;
+        margin-top: 0.25rem;
+    }
+
+    /* Course Actions Large */
+    .course-actions-large {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 2rem;
+        flex-wrap: wrap;
+    }
+
+    /* Course Sidebar */
+    .course-sidebar {
+        background: #f8f9fa;
+        border-radius: 12px;
+        padding: 1.5rem;
+        border: 1px solid #e9ecef;
+    }
+
+    .course-image-large {
+        margin-bottom: 1.5rem;
+    }
+
+    .course-image-large img {
+        width: 100%;
+        border-radius: 8px;
+    }
+
+    .course-schedule h4 {
+        margin-bottom: 1rem;
+        color: #212529;
+    }
+
+    .schedule-item {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-bottom: 0.75rem;
+        font-size: 0.875rem;
+        color: #6c757d;
+    }
+
+    .schedule-item i {
+        width: 16px;
+        color: #667eea;
+    }
+
+    /* Completed Courses */
+    .completed-courses {
+        background: white;
+        border-radius: 16px;
+        padding: 3rem;
+        text-align: center;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    }
+
+    .completed-icon {
+        color: #ffc107;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .dashboard-tabs .nav-link {
+            padding: 0.75rem 1rem;
+            font-size: 0.875rem;
+        }
+
+        .course-stats-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .course-actions-large {
+            flex-direction: column;
+        }
+
+        .course-actions-large .btn {
+            width: 100%;
+        }
+
+        .quick-stats {
+            justify-content: center;
+            margin-top: 1rem;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block javascripts %}
+<script>
+    // Initialize Bootstrap tabs
+    document.addEventListener('DOMContentLoaded', function() {
+        // Set active tab based on URL or default to all-courses
+        const urlParams = new URLSearchParams(window.location.search);
+        const activeTab = urlParams.get('tab') || 'all-courses';
+        
+        if (activeTab) {
+            const tab = new bootstrap.Tab(document.querySelector(`#${activeTab}-tab`));
+            tab.show();
+        }
+        
+        // Handle tab navigation
+        const tabElements = document.querySelectorAll('[data-bs-toggle="tab"]');
+        tabElements.forEach(tab => {
+            tab.addEventListener('shown.bs.tab', function(event) {
+                // Update URL without page reload
+                const targetId = event.target.getAttribute('data-bs-target').substring(1);
+                const url = new URL(window.location);
+                url.searchParams.set('tab', targetId);
+                window.history.pushState({}, '', url);
+            });
+        });
+    });
+</script>
+{% endblock %}
+

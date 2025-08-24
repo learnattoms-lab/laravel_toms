@@ -1,33 +1,38 @@
-# Toms Music School - Learning Management System (LMS)
+# TOMS Music School - Learning Management System
 
-A comprehensive, fully functional Learning Management System for 1-on-1 online music lessons, built with Symfony and designed to handle scheduling, payments, teacher-student assignment, progress tracking, and more.
+A comprehensive, modern Learning Management System (LMS) built with Symfony 6.3, designed specifically for music education with integrated Google Meet, Azure Blob Storage, and Stripe payment processing.
 
 ## 🎵 Features
 
-### Core Functionality
-- **Teacher Availability & Booking Engine**: Teachers input weekly time slots, students book lessons
-- **Attendance & Payroll System**: Automatic tracking, substitute assignment, and payment processing
-- **Student Reschedule Rules**: One free reschedule per month with smart scheduling
-- **Progress Tracker**: Detailed lesson summaries and preparation guidelines
-- **Content & Assignment Upload**: Support for PDFs, videos, images, and YouTube links
-- **Payment & Plan System**: Free demo, monthly, and yearly subscription options
+### Core LMS Functionality
+- **User Management**: Multi-role system (Students, Teachers, Admins)
+- **Course Management**: Create, organize, and deliver music courses
+- **Lesson System**: Structured learning with multimedia content
+- **Progress Tracking**: Monitor student advancement and achievements
+- **Assignment System**: Submit, grade, and provide feedback
+- **Quiz System**: Interactive assessments with multiple question types
+- **Notes & Comments**: Collaborative learning features
 
-### User Roles
-- **Students**: Book lessons, track progress, submit assignments
-- **Teachers**: Set availability, conduct lessons, upload content
-- **Administrators**: Manage users, monitor system, generate reports
+### Advanced Integrations
+- **Google Meet Integration**: Automatic session scheduling with video conferencing
+- **Azure Blob Storage**: Scalable file storage for course materials
+- **Stripe Payments**: Secure payment processing for course enrollments
+- **OAuth Authentication**: Google OAuth for seamless integration
 
 ### Technical Features
-- **Responsive Design**: Mobile-first approach inspired by Simplilearn
-- **Docker Support**: Complete development environment setup
-- **MySQL Database**: Robust data management with proper relationships
-- **Modern UI/UX**: Beautiful, intuitive interface with smooth animations
+- **Responsive Design**: Modern UI with Bootstrap 5.3
+- **Real-time Updates**: Live session management and notifications
+- **File Management**: Advanced file handling with metadata tracking
+- **API-First Architecture**: RESTful endpoints for mobile apps
+- **Security**: Role-based access control and secure authentication
 
 ## 🚀 Quick Start
 
 ### Prerequisites
 - Docker and Docker Compose
-- Git
+- PHP 8.2+
+- Composer
+- MySQL 8.0
 
 ### Installation
 
@@ -47,199 +52,230 @@ A comprehensive, fully functional Learning Management System for 1-on-1 online m
    docker-compose exec php composer install
    ```
 
-4. **Set up the database**
+4. **Configure environment variables**
    ```bash
-   # The database will be automatically created with the initial schema
-   # Access MySQL at localhost:3306
-   # Database: toms_lms
-   # Username: toms_user
-   # Password: toms_password
+   cp env.example .env
+   # Edit .env with your configuration
    ```
 
-5. **Access the application**
-   - Main site: http://localhost:8080
-   - Admin: http://localhost:8080/admin
-   - Teacher: http://localhost:8080/teacher
-   - Student: http://localhost:8080/student
+5. **Run database migrations**
+   ```bash
+   docker-compose exec php php bin/console doctrine:migrations:migrate
+   ```
 
-## 🏗️ Project Structure
+6. **Access the application**
+   - Web: http://localhost:8080
+   - Database: http://localhost:8081 (Adminer)
 
-```
-toms/
-├── docker/                 # Docker configuration files
-│   ├── mysql/             # MySQL setup and initialization
-│   ├── nginx/             # Nginx configuration
-│   └── php/               # PHP Dockerfile and configuration
-├── src/                   # Symfony source code
-│   └── Controller/        # Application controllers
-├── templates/             # Twig templates
-│   ├── home/             # Landing page templates
-│   ├── teacher/          # Teacher-related templates
-│   ├── plan/             # Subscription plan templates
-│   └── base.html.twig    # Base template
-├── config/                # Symfony configuration
-├── docker-compose.yml     # Docker services configuration
-├── composer.json          # PHP dependencies
-└── README.md             # This file
-```
+## ⚙️ Configuration
 
-## 🎯 Key Components
+### Environment Variables
 
-### 1. Teacher Availability & Booking Engine
-- Teachers input weekly available time slots with timezone support
-- Calendar UI showing bookable slots
-- Students choose between free demo (15 min) or paid plans
-- Automatic teacher assignment and confirmation system
-- Google Calendar integration (planned)
-
-### 2. Attendance & Payroll System
-- Every lesson = 60 minutes, 1-on-1 format
-- Automatic substitute teacher assignment for missed classes
-- Students never rescheduled from the system side
-- Teachers paid only for hours actually taught
-- Monthly payroll summaries with export functionality
-
-### 3. Student Reschedule Rules
-- One free reschedule per month per student
-- Additional reschedules marked as absence (non-refundable)
-- Admin/teacher view for tracking reschedule usage
-- Quick alternative slot suggestions
-
-### 4. Progress Tracker
-- After every class, teachers input:
-  - "What we did today" summary
-  - "What to prepare for next week"
-- Visual progress tracking per student
-- Seamless teacher handovers
-- New/substitute teachers can instantly understand student progress
-
-### 5. Content & Assignment Upload
-- Teachers can upload: PDFs, DOCs, images, reference videos
-- YouTube link support for additional content
-- Assignments auto-labeled by class/week
-- Optional expiry deadlines
-- Student submission system for practice videos/audio
-
-### 6. Payment & Plan System
-- **Free Demo**: One-time, 15-minute booking
-- **Monthly Plan**: 4 sessions/month at $199.99
-- **Yearly Plan**: 48 sessions/year at $1,999.99 (Save $400)
-- Auto-renewal reminders and billing history
-- Admin dashboard for plan management
-
-## 🎨 Design & UI
-
-### Responsive Design
-- Mobile-first approach
-- Bootstrap 5 framework
-- Custom CSS with CSS variables
-- Smooth animations and transitions
-- Font Awesome icons throughout
-
-### Color Scheme
-- **Primary**: Blue (#2563eb)
-- **Secondary**: Purple (#7c3aed)
-- **Accent**: Orange (#f59e0b)
-- **Text**: Dark gray (#1f2937)
-- **Background**: Light gray (#f9fafb)
-
-### Typography
-- **Font Family**: Inter (Google Fonts)
-- **Weights**: 300, 400, 500, 600, 700
-- **Responsive**: Scales appropriately on all devices
-
-## 🔧 Development
-
-### Docker Services
-- **PHP 8.2**: Symfony application server
-- **MySQL 8.0**: Database with pre-configured schema
-- **Nginx**: Web server with optimized configuration
-
-### Database Schema
-The system includes comprehensive tables for:
-- Users (students, teachers, admins)
-- Teacher availability and profiles
-- Subscription plans and student subscriptions
-- Bookings and lessons
-- Content and assignments
-- Student submissions
-- Payroll tracking
-
-### Environment Configuration
-Create a `.env` file with:
+#### Google OAuth
 ```env
-DATABASE_URL="mysql://toms_user:toms_password@mysql:3306/toms_lms?serverVersion=8.0&charset=utf8mb4"
-APP_SECRET=your-secret-key-here
+GOOGLE_CLIENT_ID=your_google_client_id
+GOOGLE_CLIENT_SECRET=your_google_client_secret
+GOOGLE_REDIRECT_URI=${APP_URL}/oauth/google/callback
+GOOGLE_DEFAULT_CALENDAR_ID=primary
 ```
 
-## 📱 Responsive Features
+#### Azure Blob Storage
+```env
+AZURE_BLOB_CONNECTION_STRING=DefaultEndpointsProtocol=https;AccountName=...
+AZURE_BLOB_CONTAINER=toms-lms
+AZURE_BLOB_PUBLIC_BASE=https://your_account.blob.core.windows.net/toms-lms
+```
 
-### Mobile Optimization
-- Touch-friendly navigation
-- Optimized button sizes
-- Responsive grid layouts
-- Mobile-optimized forms
-- Fast loading on mobile networks
+#### Stripe Payments
+```env
+STRIPE_PUBLIC_KEY=pk_test_...
+STRIPE_SECRET_KEY=sk_test_...
+STRIPE_WEBHOOK_SECRET=whsec_...
+```
 
-### Cross-Device Compatibility
-- Desktop: Full feature set
-- Tablet: Optimized layouts
-- Mobile: Streamlined experience
-- All devices: Consistent branding
+## 🏗️ Architecture
+
+### Entity Structure
+- **User**: Central user entity with role-based permissions
+- **Course**: Music courses with lessons and materials
+- **Lesson**: Individual learning units with content
+- **Session**: Scheduled live sessions with Google Meet integration
+- **Assignment**: Coursework with submission tracking
+- **Quiz**: Interactive assessments with scoring
+- **Enrollment**: Student-course relationships with progress tracking
+- **Certificate**: Course completion certificates
+
+### Service Layer
+- **GoogleCalendarService**: Handles Google Meet session creation
+- **AzureBlobStorageService**: Manages file uploads and storage
+- **StripeService**: Processes payments and subscriptions
+- **OAuthCredentialService**: Manages OAuth token refresh
+
+### Security
+- **Role-Based Access Control**: Granular permissions per role
+- **OAuth Integration**: Secure third-party authentication
+- **API Security**: JWT tokens and request validation
+- **File Security**: Secure file access with temporary URLs
+
+## 📱 User Roles
+
+### Students
+- Enroll in courses
+- Access lesson content
+- Submit assignments
+- Take quizzes
+- Track progress
+- Join live sessions
+
+### Teachers
+- Create and manage courses
+- Schedule live sessions
+- Grade assignments
+- Monitor student progress
+- Generate certificates
+
+### Administrators
+- Manage users and roles
+- Oversee system operations
+- Monitor API health
+- Manage system settings
+
+## 🔌 API Endpoints
+
+### Authentication
+- `POST /api/auth/login` - User authentication
+- `POST /api/auth/refresh` - Token refresh
+- `GET /api/auth/profile` - User profile
+
+### Courses
+- `GET /api/courses` - List available courses
+- `POST /api/courses` - Create new course (teachers only)
+- `GET /api/courses/{id}` - Course details
+- `POST /api/courses/{id}/enroll` - Enroll in course
+
+### Sessions
+- `GET /api/sessions` - List sessions
+- `POST /api/sessions` - Create session (teachers only)
+- `GET /api/sessions/{id}/join` - Get session join link
+
+### Files
+- `POST /api/files/upload` - Upload file
+- `GET /api/files/{id}` - Download file
+- `DELETE /api/files/{id}` - Delete file
+
+## 🎯 Use Cases
+
+### For Music Schools
+- **Online Course Delivery**: Reach students globally
+- **Live Instruction**: Real-time video sessions
+- **Progress Tracking**: Monitor student development
+- **Resource Management**: Centralized content storage
+
+### For Teachers
+- **Course Creation**: Build structured music curricula
+- **Student Management**: Track individual progress
+- **Live Sessions**: Conduct virtual music lessons
+- **Assessment Tools**: Evaluate student performance
+
+### For Students
+- **Flexible Learning**: Study at their own pace
+- **Interactive Content**: Engage with multimedia materials
+- **Live Practice**: Participate in real-time sessions
+- **Progress Monitoring**: Track learning achievements
+
+## 🛠️ Development
+
+### Running Tests
+```bash
+docker-compose exec php php bin/phpunit
+```
+
+### Code Quality
+```bash
+docker-compose exec php composer cs-fix
+docker-compose exec php composer phpstan
+```
+
+### Database Management
+```bash
+# Create migration
+docker-compose exec php php bin/console doctrine:migrations:diff
+
+# Run migrations
+docker-compose exec php php bin/console doctrine:migrations:migrate
+
+# Reset database
+docker-compose exec php php bin/console doctrine:database:drop --force
+docker-compose exec php php bin/console doctrine:database:create
+docker-compose exec php php bin/console doctrine:migrations:migrate
+```
+
+## 📊 Monitoring & Health Checks
+
+### API Health Endpoints
+- `/admin/api/health` - Overall system health
+- `/admin/api/health/google` - Google API status
+- `/admin/api/health/azure` - Azure Blob Storage status
+- `/admin/api/health/stripe` - Stripe API status
+
+### Logging
+- Application logs: `var/log/`
+- API access logs
+- Error tracking and monitoring
+
+## 🔒 Security Considerations
+
+- **OAuth Token Management**: Secure storage and refresh
+- **File Access Control**: Role-based file permissions
+- **API Rate Limiting**: Prevent abuse and DDoS
+- **Data Encryption**: Sensitive data encryption at rest
+- **Audit Logging**: Track all system activities
 
 ## 🚀 Deployment
 
-### Production Considerations
-- Update environment variables
-- Configure SSL certificates
-- Set up proper database backups
-- Implement monitoring and logging
-- Configure CDN for static assets
+### Production Checklist
+- [ ] Environment variables configured
+- [ ] SSL certificates installed
+- [ ] Database backups configured
+- [ ] Monitoring and alerting set up
+- [ ] Performance optimization applied
+- [ ] Security audit completed
 
-### Scaling
-- Load balancer for multiple PHP instances
-- Database replication for high availability
-- Redis for session management
-- CDN for global content delivery
+### Scaling Considerations
+- **Load Balancing**: Multiple application instances
+- **Database Clustering**: Read replicas for performance
+- **CDN Integration**: Global content delivery
+- **Caching Strategy**: Redis for session and data caching
 
 ## 🤝 Contributing
 
 1. Fork the repository
 2. Create a feature branch
 3. Make your changes
-4. Test thoroughly
+4. Add tests
 5. Submit a pull request
 
 ## 📄 License
 
-This project is proprietary software. All rights reserved.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## 🆘 Support
 
 For support and questions:
-- Email: info@tomsschool.com
-- Phone: +1 (555) 123-4567
-- Address: 123 Music Street, NY 10001
+- Create an issue in the repository
+- Contact the development team
+- Check the documentation
 
-## 🔮 Future Enhancements
+## 🔮 Roadmap
 
-### Planned Features
-- Google Calendar integration
-- Google Meet auto-generation
-- Mobile app (white-labeled)
-- Advanced analytics dashboard
-- Gamification and badges
-- Push/email reminders
-- Student journaling interface
-- Advanced reporting system
-
-### Technical Improvements
-- API endpoints for mobile apps
-- WebSocket support for real-time features
-- Advanced caching strategies
-- Performance optimization
-- Security enhancements
+### Upcoming Features
+- **Mobile App**: Native iOS and Android applications
+- **AI Integration**: Smart content recommendations
+- **Advanced Analytics**: Detailed learning insights
+- **Multi-language Support**: Internationalization
+- **Advanced Assessment**: AI-powered grading
+- **Social Learning**: Student collaboration features
 
 ---
 
-**Built with ❤️ for music lovers everywhere**
+**Built with ❤️ for music education**

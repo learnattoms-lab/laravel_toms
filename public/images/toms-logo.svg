@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 80" width="200" height="80">
+  <!-- Background rectangle -->
+  <rect x="10" y="10" width="180" height="30" rx="15" fill="none" stroke="#1e40af" stroke-width="2"/>
+  
+  <!-- Guitar icon -->
+  <g transform="translate(25, 20)">
+    <!-- Guitar headstock -->
+    <rect x="0" y="0" width="8" height="12" fill="#1e40af"/>
+    <!-- Tuning pegs -->
+    <circle cx="2" cy="2" r="1" fill="#1e40af"/>
+    <circle cx="6" cy="2" r="1" fill="#1e40af"/>
+    <circle cx="2" cy="6" r="1" fill="#1e40af"/>
+    <circle cx="6" cy="6" r="1" fill="#1e40af"/>
+    <circle cx="2" cy="10" r="1" fill="#1e40af"/>
+    <circle cx="6" cy="10" r="1" fill="#1e40af"/>
+    <!-- Neck and strings -->
+    <rect x="3.5" y="12" width="1" height="8" fill="#1e40af"/>
+    <line x1="4" y1="12" x2="4" y2="20" stroke="#1e40af" stroke-width="0.5"/>
+    <line x1="4" y1="12" x2="4" y2="20" stroke="#1e40af" stroke-width="0.5"/>
+    <line x1="4" y1="12" x2="4" y2="20" stroke="#1e40af" stroke-width="0.5"/>
+    <line x1="4" y1="12" x2="4" y2="20" stroke="#1e40af" stroke-width="0.5"/>
+    <line x1="4" y1="12" x2="4" y2="20" stroke="#1e40af" stroke-width="0.5"/>
+    <line x1="4" y1="12" x2="4" y2="20" stroke="#1e40af" stroke-width="0.5"/>
+  </g>
+  
+  <!-- Drum icon -->
+  <g transform="translate(70, 20)">
+    <!-- Drum body -->
+    <ellipse cx="8" cy="8" rx="8" ry="6" fill="none" stroke="#1e40af" stroke-width="2"/>
+    <!-- Drumsticks -->
+    <line x1="2" y1="2" x2="14" y2="14" stroke="#1e40af" stroke-width="1.5"/>
+    <line x1="14" y1="2" x2="2" y2="14" stroke="#1e40af" stroke-width="1.5"/>
+  </g>
+  
+  <!-- Play button with piano keys -->
+  <g transform="translate(115, 20)">
+    <!-- Play triangle -->
+    <polygon points="0,0 0,20 15,10" fill="#1e40af"/>
+    <!-- Piano keys inside -->
+    <rect x="2" y="2" width="1" height="16" fill="white"/>
+    <rect x="4" y="2" width="1" height="16" fill="white"/>
+    <rect x="6" y="2" width="1" height="16" fill="white"/>
+    <rect x="8" y="2" width="1" height="16" fill="white"/>
+    <rect x="10" y="2" width="1" height="16" fill="white"/>
+  </g>
+  
+  <!-- TOMS text -->
+  <text x="100" y="65" font-family="Arial, sans-serif" font-size="24" font-weight="bold" text-anchor="middle" fill="#1e40af">TOMS</text>
+  
+  <!-- Tagline -->
+  <text x="100" y="75" font-family="Arial, sans-serif" font-size="8" font-weight="normal" text-anchor="middle" fill="#1e40af">LEARN ANYWHERE PLAY EVERYWHERE</text>
+</svg>
